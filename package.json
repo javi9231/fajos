@@ -1,0 +1,26 @@
+{
+  "name": "fajos",
+  "version": "1.0.0",
+  "description": "Pruebas html5 juego",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javi9231/fajos.git"
+  },
+  "keywords": [
+    "game",
+    "html5"
+  ],
+  "author": "Javi9231",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javi9231/fajos/issues"
+  },
+  "homepage": "https://github.com/javi9231/fajos#readme",
+  "dependencies": {
+    "phaser-plugin-game-scale": "github:samme/phaser-plugin-game-scale"
+  }
+}
