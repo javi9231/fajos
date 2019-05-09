@@ -1,10 +1,12 @@
-let score = 200;
-let scoreText;
 let config = {
   type: Phaser.AUTO,
   width: window.innerWidth * window.devicePixelRatio,
   height: window.innerHeight * window.devicePixelRatio,
-  zoom: 1 / window.devicePixelRatio,
+  zoom: 1,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: 1
+  },
   physics: {
     default: 'arcade',
     arcade: {
@@ -21,10 +23,7 @@ let config = {
   }
 };
 
-let platforms;
-let jump;
-let fajoE;
-let graphics;
+let platforms, jump, fajoE, graphics, scoreText, score = 200, maletin, escala;
 
 let game = new Phaser.Game(config);
 
@@ -32,13 +31,38 @@ function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
   this.load.image('fajoE', 'assets/fajoE.svg');
+
+  this.load.spritesheet('maletin', 'assets/mapa.png', {
+    frameWidth: 400,
+    frameHeight: 400
+  });
 }
 
 function create() {
-  this.add.image(400, 300, 'sky');
+  this.cameras.main.setBackgroundColor(0xbababa);
+  escala = 1.5; //window.devicePixelRatio * window.devicePixelRatio;
+  // this.add.image(400, 300, 'sky');
   platforms = this.physics.add.staticGroup();
 
-  platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground').setScale(4).refreshBody();
+  platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
+  .setScale(4).refreshBody();
+
+  maletin = this.physics.add.sprite(100, 450, 'maletin');
+  // maletin.setBounce(0.2);
+  maletin.setCollideWorldBounds(true);
+  //maletin.setScale(escala/2);
+
+  cursors = this.input.keyboard.createCursorKeys();
+
+  this.anims.create({
+    key: 'open',
+    frames: this.anims.generateFrameNumbers('maletin', {
+      start: 0,
+      end: 8
+    }),
+    frameRate: 9,
+    repeat: 1
+  });
 
   // platforms.create(600, 400, 'ground');
   // platforms.create(50, 250, 'ground');
@@ -56,29 +80,27 @@ function create() {
     repeat: (score / 10) - 1,
     setXY: {
       x: 300,
-      y: 20
+      y: 100
     }
   });
-  // for (var i = 0; i < 10; i++) {
-  //   fajosEuros.create(300 + Math.random() * 400, 120 + Math.random() * 200, 'fajoE').setScale(0.5);
-  // }
 
-  // Phaser.Actions.Call(fajosEuros.getChildren(), function(fajo) {
-fajosEuros.children.iterate( (fajo) => {
+  fajosEuros.children.iterate( fajo => {
     fajo.setInteractive({
       draggable: true
     });
-    fajo.setScale(2);
-    fajo.setCollideWorldBounds(true);
+    console.log("ratio: " + window.devicePixelRatio);
+    // fajo.setScale(1 * window.devicePixelRatio + 1);
+    fajo.setScale(escala);
+    // fajo.setCollideWorldBounds(true);
     fajo.on('drag', function(pointer, dragX, dragY) {
       this.x = dragX;
       this.y = dragY;
-      console.log('Fajo pulsado');
     });
-});
-  // }, this);
+  });
+
   this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
+  this.physics.add.collider(maletin, platforms);
 }
 
 function collectStar(player, star) {
@@ -86,10 +108,8 @@ function collectStar(player, star) {
   score += 10;
   scoreText.setText('Puntuación: ' + score);
   if (stars.countActive(true) === 0) {
-    stars.children.iterate(function(child) {
-
+    stars.children.iterate(child => {
       child.enableBody(true, child.x, 0, true, true);
-
     });
 
     var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
@@ -104,8 +124,16 @@ function collectStar(player, star) {
 
 function update() {
 
-  if (this.input.pointer1.isDown) {
-    graphics.clear();
-  }
+}
 
+function checkOriention(orientation) {
+  if (orientation === Phaser.Scale.PORTRAIT) {
+    graphics.alpha = 0.2;
+    console.log('PORTRAIT');
+    //text.setVisible(true);
+  } else if (orientation === Phaser.Scale.LANDSCAPE) {
+    graphics.alpha = 1;
+    console.log('LANDSCAPE');
+    //text.setVisible(false);
+  }
 }
