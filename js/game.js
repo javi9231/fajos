@@ -101,6 +101,7 @@ function create() {
   this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
   this.physics.add.collider(maletin, platforms);
+  this.physics.add.collider(maletin, fajosEuros);
 }
 
 function collectStar(player, star) {
