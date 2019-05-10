@@ -41,14 +41,12 @@ function preload() {
 function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
   escala = 1.5; //window.devicePixelRatio * window.devicePixelRatio;
-  // this.add.image(400, 300, 'sky');
-  platforms = this.physics.add.staticGroup();
 
+  platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
   .setScale(4).refreshBody();
 
   maletin = this.physics.add.sprite(100, 450, 'maletin');
-  // maletin.setBounce(0.2);
   maletin.setCollideWorldBounds(true);
   //maletin.setScale(escala/2);
 
@@ -64,13 +62,9 @@ function create() {
     repeat: 1
   });
 
-  // platforms.create(600, 400, 'ground');
-  // platforms.create(50, 250, 'ground');
-  // platforms.create(750, 220, 'ground');
-
   graphics = this.add.graphics();
 
-  scoreText = this.add.text(16, 16, 'score: 0', {
+  scoreText = this.add.text(16, 16, 'score: ' + score, {
     fontSize: '32px',
     fill: '#000'
   });
