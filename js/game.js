@@ -40,7 +40,7 @@ function preload() {
 
 function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
-  escala = 1.5; //window.devicePixelRatio * window.devicePixelRatio;
+  escala = 2; //window.devicePixelRatio * window.devicePixelRatio;
   console.log('window.innerWidth ' + window.innerWidth
   + ' window.devicePixelRatio ' + window.devicePixelRatio
   + ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
