@@ -41,7 +41,9 @@ function preload() {
 function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
   escala = 1.5; //window.devicePixelRatio * window.devicePixelRatio;
-
+  console.log('window.innerWidth ' + window.innerWidth
+  + ' window.devicePixelRatio ' + window.devicePixelRatio
+  + ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
   platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
   .setScale(4).refreshBody();
