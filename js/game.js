@@ -50,13 +50,13 @@ function create() {
   this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
   zone.body.setAllowGravity(false);
   zone.body.moves = false;
-  
+
   platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
   .setScale(4).refreshBody();
 
-  maletin = this.physics.add.sprite(100, 450, 'maletin');
-  maletin.setCollideWorldBounds(true);
+  // maletin = this.physics.add.sprite(100, 450, 'maletin');
+  // maletin.setCollideWorldBounds(true);
   //maletin.setScale(escala/2);
 
   cursors = this.input.keyboard.createCursorKeys();
@@ -103,7 +103,9 @@ function create() {
 
   // this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
-  this.physics.add.collider(maletin, platforms);
+  //this.physics.add.collider(maletin, platforms);
+  this.physics.add.overlap(fajosEuros, zone);
+
   // this.physics.add.collider(maletin, fajosEuros);
 }
 
