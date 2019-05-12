@@ -24,7 +24,7 @@ let config = {
 };
 
 let platforms, jump, fajoE, graphics, scoreText, score = 200,
-  maletin, escala, zone;
+  maletin, escala, zone, fajosEuros;
 
 let game = new Phaser.Game(config);
 
@@ -76,7 +76,7 @@ function create() {
     fill: '#000'
   });
 
-  this.fajosEuros = this.physics.add.group({
+  fajosEuros = this.physics.add.group({
     key: 'fajoE',
     repeat: (score / 10) - 1,
     setXY: {
@@ -85,7 +85,7 @@ function create() {
     }
   });
 
-  this.fajosEuros.children.iterate(fajo => {
+  fajosEuros.children.iterate(fajo => {
     fajo.setInteractive({
       draggable: true
     });
@@ -101,7 +101,7 @@ function create() {
   });
 
   // this.physics.add.collider(fajosEuros, fajosEuros);
-  this.physics.add.collider(this.fajosEuros, platforms);
+  this.physics.add.collider(fajosEuros, platforms);
   // this.physics.add.collider(fajosEuros, zone);
 
   // this.physics.add.collider(maletin, fajosEuros);
@@ -128,7 +128,7 @@ function collectStar(player, star) {
 
 function update() {
 
-  this.fajosEuros.forEach( fajo => {
+  fajosEuros.forEach( fajo => {
       fajo.setTint(0xffffff);
   });
   var within = this.physics.overlapRect(400, 300, 300, 200, false, true);
