@@ -76,7 +76,7 @@ function create() {
     fill: '#000'
   });
 
-  fajosEuros = this.physics.add.group({
+  this.fajosEuros = this.physics.add.group({
     key: 'fajoE',
     repeat: (score / 10) - 1,
     setXY: {
@@ -101,7 +101,7 @@ function create() {
   });
 
   // this.physics.add.collider(fajosEuros, fajosEuros);
-  this.physics.add.collider(fajosEuros, platforms);
+  this.physics.add.collider(this.fajosEuros, platforms);
   // this.physics.add.collider(fajosEuros, zone);
 
   // this.physics.add.collider(maletin, fajosEuros);
