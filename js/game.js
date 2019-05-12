@@ -127,7 +127,11 @@ function collectStar(player, star) {
 }
 
 function update() {
-  var within = this.physics.overlapRect(400, 300, 300, 200, true, true);
+
+  fajosEuros.forEach( fajo => {
+      fajo.setTint(0xffffff);
+  });
+  var within = this.physics.overlapRect(400, 300, 300, 200, false, true);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xff0000);
