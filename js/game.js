@@ -1,7 +1,7 @@
 let config = {
   type: Phaser.AUTO,
-  width: window.innerWidth,// * window.devicePixelRatio,
-  height: window.innerHeight,// * window.devicePixelRatio,
+  width: window.innerWidth * window.devicePixelRatio,
+  height: window.innerHeight * window.devicePixelRatio,
   zoom: 1,
   scale: {
     mode: Phaser.Scale.FIT,
