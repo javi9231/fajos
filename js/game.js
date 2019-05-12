@@ -127,11 +127,11 @@ function collectStar(player, star) {
 }
 
 function update() {
-  let within = this.physics.overlapRect(400, 300, rect.width, rect.height);
+  var within = this.physics.overlapRect(400, 300, rect.width, rect.height);
 
-    within.forEach(function (body) {
-        body.gameObject.setTint(0xff0000);
-    });
+  within.forEach(function(body) {
+    body.gameObject.setTint(0xff0000);
+  });
 }
 
 function checkOriention(orientation) {
