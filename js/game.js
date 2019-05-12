@@ -46,7 +46,7 @@ function create() {
   + ' window.devicePixelRatio ' + window.devicePixelRatio
   + ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  zone = this.add.zone(300, 200).setSize(100, 100);
+  zone = this.add.zone(200, 200).setSize(100, 100);
   this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
   zone.body.setAllowGravity(false);
   zone.body.moves = false;
