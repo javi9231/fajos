@@ -76,7 +76,7 @@ function create() {
     fill: '#000'
   });
 
-  let fajosEuros = this.physics.add.group({
+  fajosEuros = this.physics.add.group({
     key: 'fajoE',
     repeat: (score / 10) - 1,
     setXY: {
@@ -85,7 +85,7 @@ function create() {
     }
   });
 
-  fajosEuros.children.iterate(fajo => {
+  this.fajosEuros.children.iterate(fajo => {
     fajo.setInteractive({
       draggable: true
     });
@@ -128,7 +128,7 @@ function collectStar(player, star) {
 
 function update() {
 
-  fajosEuros.forEach( fajo => {
+  this.fajosEuros.forEach( fajo => {
       fajo.setTint(0xffffff);
   });
   var within = this.physics.overlapRect(400, 300, 300, 200, false, true);
