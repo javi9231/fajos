@@ -100,12 +100,13 @@ function create() {
       this.x = dragX;
       this.y = dragY;
     });
+    this.physics.add.overlap(fajo, zone);
   });
 
   // this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
   //this.physics.add.collider(maletin, platforms);
-  this.physics.add.overlap(fajosEuros, zone);
+
 
   // this.physics.add.collider(maletin, fajosEuros);
 
