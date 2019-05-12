@@ -105,9 +105,6 @@ function create() {
   // this.physics.add.collider(fajosEuros, zone);
 
   // this.physics.add.collider(maletin, fajosEuros);
-
-  zone.on('enterzone', () => console.log('enterzone'));
-  zone.on('leavezone', () => console.log('leavezone'));
 }
 
 function collectStar(player, star) {
@@ -130,15 +127,11 @@ function collectStar(player, star) {
 }
 
 function update() {
-  var touching = zone.body.touching;
-  var wasTouching = zone.body.wasTouching;
+  let within = this.physics.overlapRect(400, 300, rect.width, rect.height);
 
-  if (touching.none && !wasTouching.none) {
-    zone.emit('leavezone');
-  } else if (!touching.none && wasTouching.none) {
-    zone.emit('enterzone');
-  }
-  zone.body.debugBodyColor = zone.body.touching.none ? 0x00ffff : 0xffff00;
+    within.forEach(function (body) {
+        body.gameObject.setTint(0xff0000);
+    });
 }
 
 function checkOriention(orientation) {
