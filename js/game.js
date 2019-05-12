@@ -25,7 +25,7 @@ let config = {
 
 let platforms, jump, fajoE, graphics, scoreText, score = 200,
   maletin, escala;
-
+const zone = this.add.zone(200, 200).setSize(200, 200);
 let game = new Phaser.Game(config);
 
 function preload() {
@@ -47,7 +47,7 @@ function create() {
     ' window.devicePixelRatio ' + window.devicePixelRatio +
     ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  zone = this.add.zone(200, 200).setSize(200, 200);
+  // zone = this.add.zone(200, 200).setSize(200, 200);
   this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
   zone.body.setAllowGravity(false);
   zone.body.moves = false;
