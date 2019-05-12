@@ -134,8 +134,7 @@ function update() {
   var within = this.physics.overlapRect(250, 200, 300, 200, true, true);
 
   within.forEach(function(body) {
-    body.gameObject.destroy();
-    //.setTint(0xff0000);
+    body.gameObject.setTint(0xff0000);//.destroy();
   });
 }
 
