@@ -127,7 +127,7 @@ function collectStar(player, star) {
 }
 
 function update() {
-  var within = this.physics.overlapRect(400, 300, rect.width, rect.height);
+  var within = this.physics.overlapRect(400, 300, 300, 200);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xff0000);
