@@ -47,10 +47,7 @@ function create() {
     ' window.devicePixelRatio ' + window.devicePixelRatio +
     ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  zone = this.add.zone(100, 200).setSize(200, 200);
-  this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
-  zone.body.setAllowGravity(false);
-  zone.body.moves = false;
+  rect = this.add.rectangle(400, 300, 300, 200).setStrokeStyle(2, 0xffff00);
 
   platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
@@ -106,7 +103,6 @@ function create() {
   // this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
   // this.physics.add.collider(fajosEuros, zone);
-  this.physics.add.overlap(zone, fajosEuros );
 
   // this.physics.add.collider(maletin, fajosEuros);
 
