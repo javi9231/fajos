@@ -128,7 +128,7 @@ function collectStar(player, star) {
 
 function update() {
 
-  fajosEuros.forEach( fajo => {
+  fajosEuros.children.iterate(fajo => {
       fajo.setTint(0xffffff);
   });
   var within = this.physics.overlapRect(400, 300, 300, 200, false, true);
