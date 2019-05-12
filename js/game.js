@@ -41,13 +41,13 @@ function preload() {
 
 function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
-  escala = 2; //window.devicePixelRatio * window.devicePixelRatio;
+  escala = window.devicePixelRatio;
 
   console.log('window.innerWidth ' + window.innerWidth +
     ' window.devicePixelRatio ' + window.devicePixelRatio +
     ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  zone = this.add.zone(200, 200).setSize(200, 200);
+  zone = this.add.zone(100, 200).setSize(200, 200);
   this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
   zone.body.setAllowGravity(false);
   zone.body.moves = false;
