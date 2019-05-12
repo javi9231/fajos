@@ -108,6 +108,9 @@ function create() {
   this.physics.add.overlap(fajosEuros, zone);
 
   // this.physics.add.collider(maletin, fajosEuros);
+
+  zone.on('enterzone', () => console.log('enterzone'));
+  zone.on('leavezone', () => console.log('leavezone'));
 }
 
 function collectStar(player, star) {
