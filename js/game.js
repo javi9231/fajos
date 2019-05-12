@@ -129,7 +129,7 @@ function collectStar(player, star) {
 }
 
 function update() {
-
+  zone.body.debugBodyColor = zone.body.touching.none ? 0x00ffff : 0xffff00;
 }
 
 function checkOriention(orientation) {
