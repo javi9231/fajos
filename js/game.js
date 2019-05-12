@@ -23,7 +23,8 @@ let config = {
   }
 };
 
-let platforms, jump, fajoE, graphics, scoreText, score = 200, maletin, escala;
+let platforms, jump, fajoE, graphics, scoreText, score = 200,
+  maletin, escala;
 
 let game = new Phaser.Game(config);
 
@@ -42,18 +43,18 @@ function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
   escala = 2; //window.devicePixelRatio * window.devicePixelRatio;
 
-  console.log('window.innerWidth ' + window.innerWidth
-  + ' window.devicePixelRatio ' + window.devicePixelRatio
-  + ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
+  console.log('window.innerWidth ' + window.innerWidth +
+    ' window.devicePixelRatio ' + window.devicePixelRatio +
+    ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  zone = this.add.zone(200, 200).setSize(100, 100);
+  zone = this.add.zone(200, 200).setSize(200, 200);
   this.physics.world.enable(zone, 0); // (0) DYNAMIC (1) STATIC
   zone.body.setAllowGravity(false);
   zone.body.moves = false;
 
   platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
-  .setScale(4).refreshBody();
+    .setScale(4).refreshBody();
 
   // maletin = this.physics.add.sprite(100, 450, 'maletin');
   // maletin.setCollideWorldBounds(true);
@@ -87,7 +88,7 @@ function create() {
     }
   });
 
-  fajosEuros.children.iterate( fajo => {
+  fajosEuros.children.iterate(fajo => {
     fajo.setInteractive({
       draggable: true
     });
@@ -129,6 +130,14 @@ function collectStar(player, star) {
 }
 
 function update() {
+  var touching = zone.body.touching;
+  var wasTouching = zone.body.wasTouching;
+
+  if (touching.none && !wasTouching.none) {
+    zone.emit('leavezone');
+  } else if (!touching.none && wasTouching.none) {
+    zone.emit('enterzone');
+  }
   zone.body.debugBodyColor = zone.body.touching.none ? 0x00ffff : 0xffff00;
 }
 
