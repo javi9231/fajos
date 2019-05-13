@@ -5,7 +5,7 @@ let config = {
   zoom: 1,
   scale: {
     mode: Phaser.Scale.FIT,
-    autoCenter: 1
+    autoCenter: Phaser.Scale.CENTER_BOTH
   },
   physics: {
     default: 'arcade',
@@ -47,15 +47,17 @@ function create() {
     ' window.devicePixelRatio ' + window.devicePixelRatio +
     ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
 
-  rect = this.add.rectangle(400, 300, 300, 200).setStrokeStyle(2, 0xffff00);
 
   platforms = this.physics.add.staticGroup();
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
     .setScale(4).refreshBody();
 
-  // maletin = this.physics.add.sprite(100, 450, 'maletin');
-  // maletin.setCollideWorldBounds(true);
-  //maletin.setScale(escala/2);
+  respuestaText = this.add.text(0, 0, respuesta, {
+    fontSize: '32px',
+    fill: '#000'
+  });
+  rect = this.add.rectangle(20, 20, 300, 200).setStrokeStyle(2, 0xffff00);
+  var container = this.add.container(100,200, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -76,6 +78,7 @@ function create() {
     fill: '#000'
   });
 
+  // respuestas = this.
   fajosEuros = this.physics.add.group({
     key: 'fajoE',
     repeat: (score / 10) - 1,
@@ -97,7 +100,6 @@ function create() {
       this.x = dragX;
       this.y = dragY;
     });
-
   });
 
   // this.physics.add.collider(fajosEuros, fajosEuros);
@@ -131,7 +133,8 @@ function update() {
   fajosEuros.children.iterate(fajo => {
       fajo.setTint(0xffffff);
   });
-  var within = this.physics.overlapRect(250, 200, 300, 200, true, true);
+
+  let within = this.physics.overlapRect(250, 200, 300, 200, true, true);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xff0000);//.destroy();
@@ -147,5 +150,10 @@ function checkOriention(orientation) {
     graphics.alpha = 1;
     console.log('LANDSCAPE');
     //text.setVisible(false);
+  }
+
+  function respuesta(){
+    let respuesta;
+    let rectangulo;
   }
 }
