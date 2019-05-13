@@ -65,7 +65,7 @@ function create() {
   posRectX = rectW / 2;
   posRectY = rectH / 2 + textoTamanio;
 
-  preguntaText = this.add.text(totalWidth/2, 65, preguntas[0].pregunta, {
+  preguntaText = this.add.text(16, 65, preguntas[0].pregunta, {
     fontSize: '64px',
     fill: '#000'
   });
