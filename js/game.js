@@ -28,8 +28,8 @@ let platforms, jump, fajoE, graphics, scoreText, score = 200,
 
 let game = new Phaser.Game(config);
 
-let totalWidth = window.innerWidth * window.devicePixelRatio;
-let totalHeight= window.innerHeight * window.devicePixelRatio;
+let totalWidth = window.innerWidth;// * window.devicePixelRatio;
+let totalHeight= window.innerHeight;// * window.devicePixelRatio;
 
 function preload() {
   this.load.image('sky', 'assets/sky.png');
