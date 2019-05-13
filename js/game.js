@@ -71,6 +71,9 @@ function create() {
   rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
 
   var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
+  rect2 = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xff0000);
+
+  var container = this.add.container(100+250, totalHeight /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -144,9 +147,13 @@ function update() {
   });
 
   let within = this.physics.overlapRect(100, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
+  let within2 = this.physics.overlapRect(100 + 250, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xffff00);//.destroy();
+  });
+  within2.forEach(function(body) {
+    body.gameObject.setTint(0xff0000);//.destroy();
   });
 
 
