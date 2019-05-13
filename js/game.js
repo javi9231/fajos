@@ -106,7 +106,7 @@ function create() {
   // respuestas = this.
   fajosEuros = this.physics.add.group({
     key: 'fajoE',
-    repeat: (score / 10) - 1,
+    repeat: (score / 20) - 1,
     setXY: {
       x: totalWidth/2,
       y: 100
