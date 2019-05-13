@@ -152,7 +152,7 @@ function collectStar(player, star) {
 function update() {
 
   fajosEuros.children.iterate(fajo => {
-      fajo.setTint.clearTint();//(0xffffff);
+      fajo.clearTint();//(0xffffff);
   });
 
   let within = this.physics.overlapRect(100, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
