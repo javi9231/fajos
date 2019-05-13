@@ -32,6 +32,8 @@ let totalWidth = window.innerWidth;// * window.devicePixelRatio;
 let totalHeight= window.innerHeight;// * window.devicePixelRatio;
 console.log('totalWidth: ' + totalWidth + ' totalHeight: ' + totalHeight);
 console.log('totalWidth/2: ' + totalWidth/2 + ' totalHeight/2: ' + totalHeight/2);
+
+
 function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
@@ -67,6 +69,7 @@ function create() {
   posRectY = rectH / 2 + textoTamanio;
 
   rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
+
   var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
@@ -112,11 +115,7 @@ function create() {
     });
   });
 
-  // this.physics.add.collider(fajosEuros, fajosEuros);
   this.physics.add.collider(fajosEuros, platforms);
-  // this.physics.add.collider(fajosEuros, zone);
-
-  // this.physics.add.collider(maletin, fajosEuros);
 }
 
 function collectStar(player, star) {
@@ -143,19 +142,14 @@ function update() {
   fajosEuros.children.iterate(fajo => {
       fajo.setTint(0xffffff);
   });
-  // let textoTamanio = 35;
-  // let rectW = 200;
-  // let rectH = 200;
-  // let posRectX = rectW / 2;
-  // let posRectY = rectH / 2 + textoTamanio;
-  // rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
-  // var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
   let within = this.physics.overlapRect(100, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
 
   within.forEach(function(body) {
-    body.gameObject.setTint(0xff0000);//.destroy();
+    body.gameObject.setTint(0xffff00);//.destroy();
   });
+
+
 }
 
 function checkOriention(orientation) {
