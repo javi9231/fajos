@@ -66,7 +66,7 @@ function create() {
   posRectY = rectH / 2 + textoTamanio;
 
   preguntaText = this.add.text(16, 65, preguntas[0].pregunta, {
-    fontSize: '64px',
+    fontSize: '42px',
     fill: '#000'
   });
 
