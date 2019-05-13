@@ -24,7 +24,7 @@ let config = {
 };
 
 let platforms, jump, fajoE, graphics, scoreText, score = 200,
-  maletin, escala, zone, fajosEuros;
+  maletin, escala, zone, fajosEuros, textoTamanio, rectW, rectH, posRectX, posRectY, respuestaText;
 
 let game = new Phaser.Game(config);
 
@@ -60,14 +60,14 @@ function create() {
     fontSize: '32px',
     fill: '#000'
   });
-  this.textoTamanio = 35;
-  this.rectW = 200;
-  this.rectH = 200;
-  this.posRectX = this.rectW / 2;
-  this.posRectY = this.rectH / 2 + this.textoTamanio;
+  textoTamanio = 35;
+  rectW = 200;
+  rectH = 200;
+  posRectX = rectW / 2;
+  posRectY = rectH / 2 + textoTamanio;
 
-  rect = this.add.rectangle(this.posRectX, this.posRectY, this.rectW, this.rectH).setStrokeStyle(2, 0xffff00);
-  var container = this.add.container(100, this.totalHeight /2, [respuestaText, rect]);
+  rect = this.add.rectangle(posRectX, osRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
+  var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -151,7 +151,7 @@ function update() {
   // rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
   // var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
-  let within = this.physics.overlapRect(100, this.totalHeight /2 + this.textoTamanio, this.rectW, this.rectH, true, true);
+  let within = this.physics.overlapRect(100, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xff0000);//.destroy();
