@@ -63,8 +63,8 @@ function create() {
   this.textoTamanio = 35;
   this.rectW = 200;
   this.rectH = 200;
-  this.posRectX = rectW / 2;
-  this.posRectY = rectH / 2 + this.textoTamanio;
+  this.posRectX = this.rectW / 2;
+  this.posRectY = this.rectH / 2 + this.textoTamanio;
 
   rect = this.add.rectangle(this.posRectX, this.posRectY, this.rectW, this.rectH).setStrokeStyle(2, 0xffff00);
   var container = this.add.container(100, this.totalHeight /2, [respuestaText, rect]);
