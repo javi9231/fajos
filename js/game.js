@@ -71,8 +71,12 @@ function create() {
   rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
   var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
+  respuestaText2 = this.add.text(0, 0, preguntas[0].respuestas[1].respuesta, {
+    fontSize: '32px',
+    fill: '#000'
+  });
   rect2 = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xff0000);
-  var container = this.add.container(100+250, totalHeight /2, [respuestaText, rect2]);
+  var container = this.add.container(100+250, totalHeight /2, [respuestaText2, rect2]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
