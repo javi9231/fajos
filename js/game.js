@@ -69,7 +69,7 @@ function create() {
     fontSize: '42px',
     fill: '#000'
   });
-
+  pregunta.anchor.set(0.5);
   respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
     fontSize: '32px',
     fill: '#000'
