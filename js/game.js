@@ -56,8 +56,8 @@ function create() {
     fontSize: '32px',
     fill: '#000'
   });
-  rect = this.add.rectangle(0, 0, 300, 200).setStrokeStyle(2, 0xffff00);
-  var container = this.add.container(200,200, [respuestaText, rect]);
+  rect = this.add.rectangle(200, 200, 400, 400).setStrokeStyle(2, 0xffff00);
+  var container = this.add.container(100,100, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
