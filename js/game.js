@@ -66,7 +66,7 @@ function create() {
   posRectX = rectW / 2;
   posRectY = rectH / 2 + textoTamanio;
 
-  rect = this.add.rectangle(posRectX, osRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
+  rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
   var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
