@@ -109,7 +109,7 @@ function create() {
     repeat: (score / 20) - 1,
     setXY: {
       x: totalWidth/2,
-      y: 100
+      y: 200
     }
   });
 
