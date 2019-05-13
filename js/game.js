@@ -60,14 +60,14 @@ function create() {
     fontSize: '32px',
     fill: '#000'
   });
-  let textoTamanio = 35;
-  let rectW = 200;
-  let rectH = 200;
-  let posRectX = rectW / 2;
-  let posRectY = rectH / 2 + textoTamanio;
+  this.textoTamanio = 35;
+  this.rectW = 200;
+  this.rectH = 200;
+  this.posRectX = rectW / 2;
+  this.posRectY = rectH / 2 + this.textoTamanio;
 
-  rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
-  var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
+  rect = this.add.rectangle(this.posRectX, this.posRectY, this.rectW, this.rectH).setStrokeStyle(2, 0xffff00);
+  var container = this.add.container(100, this.totalHeight /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -143,8 +143,15 @@ function update() {
   fajosEuros.children.iterate(fajo => {
       fajo.setTint(0xffffff);
   });
+  // let textoTamanio = 35;
+  // let rectW = 200;
+  // let rectH = 200;
+  // let posRectX = rectW / 2;
+  // let posRectY = rectH / 2 + textoTamanio;
+  // rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
+  // var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
-  let within = this.physics.overlapRect(250, 200, 300, 200, true, true);
+  let within = this.physics.overlapRect(100, this.totalHeight /2 + this.textoTamanio, this.rectW, this.rectH, true, true);
 
   within.forEach(function(body) {
     body.gameObject.setTint(0xff0000);//.destroy();
