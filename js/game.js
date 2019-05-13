@@ -58,16 +58,22 @@ function create() {
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
     .setScale(4).refreshBody();
 
-  respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
-    fontSize: '32px',
-    fill: '#000'
-  });
+
   textoTamanio = 35;
   rectW = 200;
   rectH = 200;
   posRectX = rectW / 2;
   posRectY = rectH / 2 + textoTamanio;
 
+  preguntaText = this.add.text(totalWidth/2, 65, preguntas[0].pregunta, {
+    fontSize: '64px',
+    fill: '#000'
+  });
+
+  respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
+    fontSize: '32px',
+    fill: '#000'
+  });
   rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
   var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
