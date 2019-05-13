@@ -30,7 +30,8 @@ let game = new Phaser.Game(config);
 
 let totalWidth = window.innerWidth;// * window.devicePixelRatio;
 let totalHeight= window.innerHeight;// * window.devicePixelRatio;
-
+console.log('totalWidth: ' + totalWidth + ' totalHeight: ' + totalHeight);
+console.log('totalWidth/2: ' + totalWidth/2 + ' totalHeight/2: ' + totalHeight/2);
 function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
