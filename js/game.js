@@ -93,7 +93,7 @@ function create() {
     key: 'fajoE',
     repeat: (score / 10) - 1,
     setXY: {
-      x: 500,
+      x: totalWidth/2,
       y: 100
     }
   });
