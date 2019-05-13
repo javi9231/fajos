@@ -56,7 +56,13 @@ function create() {
     fontSize: '32px',
     fill: '#000'
   });
-  rect = this.add.rectangle(200, 235, 400, 400).setStrokeStyle(2, 0xffff00);
+  let textoTamanio = 35;
+  let rectW = 200;
+  let rectH = 200;
+  let posRectX = rectW / 2;
+  let posRectY = rectH / 2 + textoTamanio;
+
+  rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
   var container = this.add.container(100,100, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
