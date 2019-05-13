@@ -28,6 +28,9 @@ let platforms, jump, fajoE, graphics, scoreText, score = 200,
 
 let game = new Phaser.Game(config);
 
+let totalWidth = window.innerWidth * window.devicePixelRatio;
+let totalHeight= window.innerHeight * window.devicePixelRatio;
+
 function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
@@ -63,7 +66,7 @@ function create() {
   let posRectY = rectH / 2 + textoTamanio;
 
   rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
-  var container = this.add.container(100,100, [respuestaText, rect]);
+  var container = this.add.container(100,totalWidth /2, [respuestaText, rect]);
 
   cursors = this.input.keyboard.createCursorKeys();
 
