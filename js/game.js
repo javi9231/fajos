@@ -52,7 +52,7 @@ function create() {
   platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
     .setScale(4).refreshBody();
 
-  respuestaText = this.add.text(0, 0, respuesta, {
+  respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
     fontSize: '32px',
     fill: '#000'
   });
