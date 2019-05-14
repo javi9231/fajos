@@ -65,17 +65,14 @@ function create() {
   posRectX = rectW / 2;
   posRectY = rectH / 2 + textoTamanio;
 
-  preguntaText = this.add.text(16, 65, preguntas[0].pregunta, {
+  preguntaText = this.add.text(30, 65, preguntas[0].pregunta, {
     fontSize: '42px',
-    fill: '#000'
+    fill: '#000',
+    align: 'center',
+    wordWrap: {
+      width: totalWidth - 60
+    }
   });
-
-  // respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
-  //   fontSize: '32px',
-  //   fill: '#000'
-  // });
-  // rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
-  // var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
 
   respuesta(this, 100, preguntas[0].respuestas[0].respuesta, 0xffff00);
 
@@ -188,8 +185,8 @@ function checkOriention(orientation) {
     rectH = 200;
     posRectX = rectW / 2;
     posRectY = rectH / 2 + textoTamanio;
-
-    let respuestaText = scene.add.text(0, 0, respuesta, {
+    console.log('posicion texto respuesta: ' + (rectW / 2 - (respuesta.length + 2) * 32/ 2));
+    let respuestaText = scene.add.text(rectW / 2 - 20, 0, respuesta, {
       fontSize: '32px',
       fill: '#000',
       align: 'center',
@@ -197,6 +194,6 @@ function checkOriention(orientation) {
         width: totalWidth
       }
     });
-    let rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
-    var container = this.add.container(containerX, totalHeight /2, [respuestaText, rect]);
+    let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
+    var container = scene.add.container(containerX, totalHeight /2, [respuestaText, rect]);
   }
