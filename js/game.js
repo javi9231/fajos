@@ -66,8 +66,8 @@ function create() {
     key: 'fajoE',
     repeat: (score / 20) - 1,
     setXY: {
-      x: totalWidth/20,
-      y: 400
+      x: totalWidth * window.devicePixelRatio,
+      y: totalHeight * window.devicePixelRatio/2
     }
   });
 
@@ -82,7 +82,7 @@ function create() {
     });
   });
 }
-function pintarFajos (scene, zonaX, zonaY, rW, rH, color){
+function colorearFajos (scene, zonaX, zonaY, rW, rH, color){
   let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
   within.forEach(function(body) {
     body.gameObject.setTint(color);//.destroy();
@@ -95,8 +95,8 @@ function update() {
       fajo.clearTint();//(0xffffff);
   });
 
-  pintarFajos(this, 100, totalHeight /2 + totalHeight/4 + textoTamanio, rectW, rectH, 0xffff00);
-  pintarFajos(this, 100 + 250, totalHeight /2 + totalHeight/4+ textoTamanio, rectW, rectH, 0xff0000);
+  colorearFajos(this, 100, totalHeight - totalHeight/4 + textoTamanio, rectW, rectH, 0xffff00);
+  colorearFajos(this, 100 + 250, totalHeight - totalHeight/4+ textoTamanio, rectW, rectH, 0xff0000);
 }
 
 function checkOriention(orientation) {
@@ -113,24 +113,23 @@ function checkOriention(orientation) {
 
   function respuesta(scene, containerX, respuesta, rectColor){
     textoTamanio = 35;
-    rectW = 200;
-    rectH = 200;
+    rectW = rectH = 200;
+
     posRectX = rectW / 2;
     posRectY = rectH / 2 + textoTamanio;
-    console.log('posicion texto respuesta: ' + (posRectX - respuesta.length * 32 / 2));
+
     let posXrespuestaTxt =  (posRectX - respuesta.length * 32 /
       (respuesta.length ))/ window.devicePixelRatio;
     let posYrespuestaTxt = respuesta.length > 10? -100 : -20;
 
-    console.log(totalWidth * totalHeight /100000);
     let respuestaText = scene.add.text(posXrespuestaTxt, posYrespuestaTxt, respuesta, {
-      fontSize: '32px',
+      fontSize: textoTamanio,
       fill: '#000',
       align: 'center',
       wordWrap: {
         width: rectW
       }
     });
-    let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(4, rectColor);
-    var container = scene.add.container(containerX, totalHeight /2 + totalHeight/4, [respuestaText, rect]);
+    let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(10, rectColor);
+    var container = scene.add.container(containerX, totalHeight - totalHeight/4, [respuestaText, rect]);
   }
