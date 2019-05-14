@@ -13,7 +13,7 @@ let config = {
       gravity: {
         y: 0
       },
-      debug: true
+      debug: false
     }
   },
   scene: {
@@ -23,16 +23,12 @@ let config = {
   }
 };
 
-let platforms, jump, fajoE, graphics, scoreText, score = 2000,
-  maletin, escala, zone, fajosEuros, textoTamanio, rectW, rectH, posRectX, posRectY, respuestaText;
+let graphics, score = 200, escala, fajosEuros, textoTamanio, rectW, rectH, posRectY;
 
 let game = new Phaser.Game(config);
 
-let totalWidth = window.innerWidth;// * window.devicePixelRatio;
-let totalHeight= window.innerHeight;// * window.devicePixelRatio;
-console.log('totalWidth: ' + totalWidth + ' totalHeight: ' + totalHeight);
-console.log('totalWidth/2: ' + totalWidth/2 + ' totalHeight/2: ' + totalHeight/2);
-
+let totalWidth = window.innerWidth;
+let totalHeight= window.innerHeight;
 
 function preload() {
   this.load.image('sky', 'assets/sky.png');
@@ -79,17 +75,18 @@ function create() {
     fajo.setInteractive({
       draggable: true
     });
-    console.log("ratio: " + window.devicePixelRatio);
-    // fajo.setScale(1 * window.devicePixelRatio + 1);
     fajo.setScale(window.devicePixelRatio/2);
-    // fajo.setCollideWorldBounds(true);
     fajo.on('drag', function(pointer, dragX, dragY) {
       this.x = dragX;
       this.y = dragY;
     });
   });
-
-  this.physics.add.collider(fajosEuros, platforms);
+}
+function pintarFajos (scene, zonaX, zonaY, rW, rH, color){
+  let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
+  within.forEach(function(body) {
+    body.gameObject.setTint(color);//.destroy();
+  });
 }
 
 function update() {
@@ -98,17 +95,8 @@ function update() {
       fajo.clearTint();//(0xffffff);
   });
 
-  let within = this.physics.overlapRect(100, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
-  let within2 = this.physics.overlapRect(100 + 250, totalHeight /2 + textoTamanio, rectW, rectH, true, true);
-
-  within.forEach(function(body) {
-    body.gameObject.setTint(0xffff00);//.destroy();
-  });
-  within2.forEach(function(body) {
-    body.gameObject.setTint(0xff0000);//.destroy();
-  });
-
-
+  pintarFajos(this, 100, totalHeight /2 + totalHeight/4 + textoTamanio, rectW, rectH, 0xffff00);
+  pintarFajos(this, 100 + 250, totalHeight /2 + totalHeight/4+ textoTamanio, rectW, rectH, 0xff0000);
 }
 
 function checkOriention(orientation) {
@@ -130,14 +118,19 @@ function checkOriention(orientation) {
     posRectX = rectW / 2;
     posRectY = rectH / 2 + textoTamanio;
     console.log('posicion texto respuesta: ' + (posRectX - respuesta.length * 32 / 2));
-    let respuestaText = scene.add.text((posRectX - respuesta.length * 32 / (respuesta.length - 1))/ window.devicePixelRatio, -100 / window.devicePixelRatio , respuesta, {
+    let posXrespuestaTxt =  (posRectX - respuesta.length * 32 /
+      (respuesta.length ))/ window.devicePixelRatio;
+    let posYrespuestaTxt = respuesta.length > 10? -100 : -20;
+
+    console.log(totalWidth * totalHeight /100000);
+    let respuestaText = scene.add.text(posXrespuestaTxt, posYrespuestaTxt, respuesta, {
       fontSize: '32px',
       fill: '#000',
       align: 'center',
       wordWrap: {
-        width: 32*5* window.devicePixelRatio
+        width: rectW
       }
     });
-    let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
-    var container = scene.add.container(containerX, totalHeight /2, [respuestaText, rect]);
+    let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(4, rectColor);
+    var container = scene.add.container(containerX, totalHeight /2 + totalHeight/4, [respuestaText, rect]);
   }
