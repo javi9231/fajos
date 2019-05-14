@@ -23,7 +23,7 @@ let config = {
   }
 };
 
-let platforms, jump, fajoE, graphics, scoreText, score = 200,
+let platforms, jump, fajoE, graphics, scoreText, score = 2000,
   maletin, escala, zone, fajosEuros, textoTamanio, rectW, rectH, posRectX, posRectY, respuestaText;
 
 let game = new Phaser.Game(config);
@@ -44,23 +44,7 @@ function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
   escala = window.devicePixelRatio;
 
-  console.log('window.innerWidth ' + window.innerWidth +
-    ' window.devicePixelRatio ' + window.devicePixelRatio +
-    ' window.innerWidth * window.devicePixelRatio ' + window.innerWidth * window.devicePixelRatio);
-
-
-  platforms = this.physics.add.staticGroup();
-  platforms.create(0, window.innerHeight * window.devicePixelRatio, 'ground')
-    .setScale(4).refreshBody();
-
-
-  textoTamanio = 35;
-  rectW = 200;
-  rectH = 200;
-  posRectX = rectW / 2;
-  posRectY = rectH / 2 + textoTamanio;
-
-  preguntaText = this.add.text(30, 65, preguntas[0].pregunta, {
+  preguntaText = this.add.text(40, 20, preguntas[0].pregunta, {
     fontSize: '40px',
     fill: '#000',
     align: 'center',
@@ -70,18 +54,18 @@ function create() {
   });
 
   respuesta(this, 100, preguntas[0].respuestas[0].respuesta, 0xffff00);
-  respuesta(this, 100 + 250, preguntas[0].respuestas[1].respuesta, 0xff0000);
+  respuesta(this, 100 + 250, preguntas[3].respuestas[0].respuesta, 0xff0000);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   graphics = this.add.graphics();
 
-  scoreText = this.add.text(16, 16, 'score: ' + score, {
+  scoreText = this.add.text((totalWidth - 250)*window.devicePixelRatio,
+  (totalHeight - 50)*window.devicePixelRatio, 'score: ' + score, {
     fontSize: '32px',
     fill: '#000'
   });
 
-  // respuestas = this.
   fajosEuros = this.physics.add.group({
     key: 'fajoE',
     repeat: (score / 20) - 1,
@@ -106,25 +90,6 @@ function create() {
   });
 
   this.physics.add.collider(fajosEuros, platforms);
-}
-
-function collectStar(player, star) {
-  star.disableBody(true, true);
-  score += 10;
-  scoreText.setText('Puntuación: ' + score);
-  if (stars.countActive(true) === 0) {
-    stars.children.iterate(child => {
-      child.enableBody(true, child.x, 0, true, true);
-    });
-
-    var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-
-    var bomb = bombs.create(x, 16, 'bomb');
-    bomb.setBounce(1);
-    bomb.setCollideWorldBounds(true);
-    bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-
-  }
 }
 
 function update() {
@@ -164,13 +129,13 @@ function checkOriention(orientation) {
     rectH = 200;
     posRectX = rectW / 2;
     posRectY = rectH / 2 + textoTamanio;
-    console.log('posicion texto respuesta: ' + (rectW / 2 - (respuesta.length + 2) * 32/ 2));
-    let respuestaText = scene.add.text(rectW / 2 - 20, 0, respuesta, {
+    console.log('posicion texto respuesta: ' + (posRectX - respuesta.length * 32 / 2));
+    let respuestaText = scene.add.text((posRectX - respuesta.length * 32 / (respuesta.length - 1))/ window.devicePixelRatio, -100 / window.devicePixelRatio , respuesta, {
       fontSize: '32px',
       fill: '#000',
       align: 'center',
       wordWrap: {
-        width: totalWidth
+        width: 32*5* window.devicePixelRatio
       }
     });
     let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
