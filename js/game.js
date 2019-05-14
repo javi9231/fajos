@@ -180,6 +180,7 @@ function checkOriention(orientation) {
     console.log('LANDSCAPE');
     //text.setVisible(false);
   }
+}
 
   function respuesta(containerX, respuesta, rectColor){
     textoTamanio = 35;
@@ -199,4 +200,3 @@ function checkOriention(orientation) {
     let rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
     var container = this.add.container(containerX, totalHeight /2, [respuestaText, rect]);
   }
-}
