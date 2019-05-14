@@ -38,11 +38,6 @@ function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
   this.load.image('fajoE', 'assets/fajoE.svg');
-
-  this.load.spritesheet('maletin', 'assets/mapa.png', {
-    frameWidth: 400,
-    frameHeight: 400
-  });
 }
 
 function create() {
@@ -66,34 +61,18 @@ function create() {
   posRectY = rectH / 2 + textoTamanio;
 
   preguntaText = this.add.text(30, 65, preguntas[0].pregunta, {
-    fontSize: '42px',
+    fontSize: '40px',
     fill: '#000',
     align: 'center',
     wordWrap: {
-      width: totalWidth - 60
+      width: totalWidth * window.devicePixelRatio
     }
   });
 
   respuesta(this, 100, preguntas[0].respuestas[0].respuesta, 0xffff00);
-
-  respuestaText2 = this.add.text(0, 0, preguntas[0].respuestas[1].respuesta, {
-    fontSize: '32px',
-    fill: '#000'
-  });
-  rect2 = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xff0000);
-  var container = this.add.container(100+250, totalHeight /2, [respuestaText2, rect2]);
+  respuesta(this, 100 + 250, preguntas[0].respuestas[1].respuesta, 0xff0000);
 
   cursors = this.input.keyboard.createCursorKeys();
-
-  this.anims.create({
-    key: 'open',
-    frames: this.anims.generateFrameNumbers('maletin', {
-      start: 0,
-      end: 8
-    }),
-    frameRate: 9,
-    repeat: 1
-  });
 
   graphics = this.add.graphics();
 
@@ -107,8 +86,8 @@ function create() {
     key: 'fajoE',
     repeat: (score / 20) - 1,
     setXY: {
-      x: totalWidth/2,
-      y: 200
+      x: totalWidth/20,
+      y: 400
     }
   });
 
@@ -118,7 +97,7 @@ function create() {
     });
     console.log("ratio: " + window.devicePixelRatio);
     // fajo.setScale(1 * window.devicePixelRatio + 1);
-    fajo.setScale(escala);
+    fajo.setScale(window.devicePixelRatio/2);
     // fajo.setCollideWorldBounds(true);
     fajo.on('drag', function(pointer, dragX, dragY) {
       this.x = dragX;
