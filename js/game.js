@@ -70,12 +70,14 @@ function create() {
     fill: '#000'
   });
 
-  respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
-    fontSize: '32px',
-    fill: '#000'
-  });
-  rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
-  var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
+  // respuestaText = this.add.text(0, 0, preguntas[0].respuestas[0].respuesta, {
+  //   fontSize: '32px',
+  //   fill: '#000'
+  // });
+  // rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, 0xffff00);
+  // var container = this.add.container(100, totalHeight /2, [respuestaText, rect]);
+
+  respuesta(100, preguntas[0].respuestas[0].respuesta, 0xffff00);
 
   respuestaText2 = this.add.text(0, 0, preguntas[0].respuestas[1].respuesta, {
     fontSize: '32px',
@@ -179,8 +181,22 @@ function checkOriention(orientation) {
     //text.setVisible(false);
   }
 
-  function respuesta(){
-    let respuesta;
-    let rectangulo;
+  function respuesta(containerX, respuesta, rectColor){
+    textoTamanio = 35;
+    rectW = 200;
+    rectH = 200;
+    posRectX = rectW / 2;
+    posRectY = rectH / 2 + textoTamanio;
+
+    let respuestaText = this.add.text(0, 0, respuesta, {
+      fontSize: '32px',
+      fill: '#000',
+      align: 'center',
+      wordWrap: {
+        width: totalWidth)
+      }
+    });
+    let rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
+    var container = this.add.container(containerX, totalHeight /2, [respuestaText, rect]);
   }
 }
