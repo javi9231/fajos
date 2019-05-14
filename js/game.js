@@ -193,7 +193,7 @@ function checkOriention(orientation) {
       fill: '#000',
       align: 'center',
       wordWrap: {
-        width: totalWidth)
+        width: totalWidth
       }
     });
     let rect = this.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(2, rectColor);
