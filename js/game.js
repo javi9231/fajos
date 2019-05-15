@@ -23,42 +23,44 @@ let config = {
   }
 };
 
-let graphics, score = 200, escala, fajosEuros, textoTamanio, rectW, rectH, posRectY;
+let graphics, score = 200, fajoE, fajosEuros, textoTamanio, rectW, rectH, posRectY;
 
 let game = new Phaser.Game(config);
 
-let totalWidth = window.innerWidth;
-let totalHeight= window.innerHeight;
+let escala = window.devicePixelRatio;
+let totalWidth = window.innerWidth * escala;
+let totalHeight= window.innerHeight * escala;
 
 function preload() {
-  this.load.image('sky', 'assets/sky.png');
-  this.load.image('ground', 'assets/platform.png');
   this.load.image('fajoE', 'assets/fajoE.svg');
 }
 
 function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
-  escala = window.devicePixelRatio;
-
+  let fontSize = 18 * escala;
   preguntaText = this.add.text(40, 20, preguntas[0].pregunta, {
-    fontSize: '40px',
+    fontSize: fontSize, //'40px',
     fill: '#000',
     align: 'center',
     wordWrap: {
-      width: totalWidth * window.devicePixelRatio
+      width: totalWidth - fontSize
     }
   });
 
-  respuesta(this, 100, preguntas[0].respuestas[0].respuesta, 0xffff00);
-  respuesta(this, 100 + 250, preguntas[3].respuestas[0].respuesta, 0xff0000);
+  const posicionRect = {
+    posX: 100 * escala,
+    posY: totalHeight/4
+  }
+  respuesta(this, 100* escala, preguntas[0].respuestas[0].respuesta, 0xffff00);
+  respuesta(this, (100 + 202) * escala, preguntas[3].respuestas[0].respuesta, 0xff0000);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   graphics = this.add.graphics();
 
-  scoreText = this.add.text((totalWidth - 250)*window.devicePixelRatio,
-  (totalHeight - 50)*window.devicePixelRatio, 'score: ' + score, {
-    fontSize: '32px',
+  scoreText = this.add.text(totalWidth - 250 * escala,
+  totalHeight - 50 * escala, 'score: ' + score, {
+    fontSize: fontSize,
     fill: '#000'
   });
 
@@ -66,22 +68,24 @@ function create() {
     key: 'fajoE',
     repeat: (score / 20) - 1,
     setXY: {
-      x: totalWidth * window.devicePixelRatio,
-      y: totalHeight * window.devicePixelRatio/2
+      x: totalWidth - 102  ,
+      y: totalHeight /4
     }
   });
+
 
   fajosEuros.children.iterate(fajo => {
     fajo.setInteractive({
       draggable: true
     });
-    fajo.setScale(window.devicePixelRatio/2);
+    fajo.setScale(escala/2);
     fajo.on('drag', function(pointer, dragX, dragY) {
       this.x = dragX;
       this.y = dragY;
     });
   });
 }
+
 function colorearFajos (scene, zonaX, zonaY, rW, rH, color){
   let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
   within.forEach(function(body) {
@@ -89,15 +93,6 @@ function colorearFajos (scene, zonaX, zonaY, rW, rH, color){
   });
 }
 
-function update() {
-
-  fajosEuros.children.iterate(fajo => {
-      fajo.clearTint();//(0xffffff);
-  });
-
-  colorearFajos(this, 100, totalHeight - totalHeight/4 + textoTamanio, rectW, rectH, 0xffff00);
-  colorearFajos(this, 100 + 250, totalHeight - totalHeight/4+ textoTamanio, rectW, rectH, 0xff0000);
-}
 
 function checkOriention(orientation) {
   if (orientation === Phaser.Scale.PORTRAIT) {
@@ -112,15 +107,16 @@ function checkOriention(orientation) {
 }
 
   function respuesta(scene, containerX, respuesta, rectColor){
-    textoTamanio = 35;
-    rectW = rectH = 200;
+    textoTamanio = 18 * escala;
+    rectW = rectH = 100 * escala;
 
     posRectX = rectW / 2;
-    posRectY = rectH / 2 + textoTamanio;
+    posRectY = rectH / 2;
 
     let posXrespuestaTxt =  (posRectX - respuesta.length * 32 /
       (respuesta.length ))/ window.devicePixelRatio;
-    let posYrespuestaTxt = respuesta.length > 10? -100 : -20;
+    // let posYrespuestaTxt = respuesta.length > 10? -100 : -20;
+    let posYrespuestaTxt =  posRectY * 2 + textoTamanio;
 
     let respuestaText = scene.add.text(posXrespuestaTxt, posYrespuestaTxt, respuesta, {
       fontSize: textoTamanio,
@@ -131,5 +127,15 @@ function checkOriention(orientation) {
       }
     });
     let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(10, rectColor);
-    var container = scene.add.container(containerX, totalHeight - totalHeight/4, [respuestaText, rect]);
+    var container = scene.add.container(containerX, totalHeight/4, [respuestaText, rect]);
+  }
+
+  function update() {
+
+    fajosEuros.children.iterate(fajo => {
+        fajo.clearTint();//(0xffffff);
+    });
+
+    colorearFajos(this, 100* escala, totalHeight/4, rectW, rectH, 0xffff00);
+    colorearFajos(this, (100 + 202) * escala, totalHeight/4, rectW, rectH, 0xff0000);
   }
