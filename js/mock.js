@@ -2,23 +2,18 @@
 const preguntas = [
   {
     id: 1,
-    nivelDificultad: 3,
-    pregunta: 'James Cameron tuvo la idea de Terminator debido a... ',
+    nivelDificultad: 1,
+    pregunta: 'James Cameron tuvo la idea de Terminator cuando... ',
     pista: 'Tenía fiebre cuando se le ocurrió',
     curiosidad: 'Una pesadilla febríl con un robot que intentaba matarlo',
     respuestas:  [
       {
-        respuesta: 'Comic',
-        probabilidad: 1,
+        respuesta: 'Leía un Comic',
+        probabilidad: 1, // en caso de eliminar alguna esta no se eliminaria
         isTrue: 'false'
       },
       {
         respuesta: 'Libro',
-        probabilidad: 0,
-        isTrue: 'false'
-      },
-      {
-        respuesta: 'Amigo',
         probabilidad: 0,
         isTrue: 'false'
       },
@@ -31,7 +26,7 @@ const preguntas = [
   },
   {
     id: 2,
-    nivelDificultad: 1,
+    nivelDificultad: 0,
     pregunta: 'Qué modelo de Terminator es representado por Arnold Schwarzenegger',
     pista: 'Es más que un 600 y menos de 1000',
     curiosidad: 'T800',
@@ -47,7 +42,7 @@ const preguntas = [
         isTrue: 'false'
       },
       {
-        respuesta: 'T1000',
+        respuesta: 'T1100',
         probabilidad: 0,
         isTrue: 'false'
       },
@@ -60,7 +55,7 @@ const preguntas = [
   },
   {
     id: 3,
-    nivelDificultad: 2,
+    nivelDificultad: 1,
     pregunta: 'Es una mejora de T-888 ',
     pista: 'Es triste de pedir',
     curiosidad: 'T-888 es capaz de robar la piel de otro para reparar la suya',
@@ -68,11 +63,6 @@ const preguntas = [
       {
         respuesta: 'Envejece',
         probabilidad: 1,
-        isTrue: 'false'
-      },
-      {
-        respuesta: 'Chechual',
-        probabilidad: 0,
         isTrue: 'false'
       },
       {
@@ -101,16 +91,6 @@ const preguntas = [
         isTrue: 'false'
       },
       {
-        respuesta: 'Torpedo',
-        probabilidad: 0,
-        isTrue: 'false'
-      },
-      {
-        respuesta: 'Hasta luego',
-        probabilidad: 0,
-        isTrue: 'false'
-      },
-      {
         respuesta: 'Volveré',
         probabilidad: 1,
         isTrue: 'true'
@@ -119,7 +99,7 @@ const preguntas = [
   },
   {
     id: 5,
-    nivelDificultad: 1,
+    nivelDificultad: 0,
     pregunta: 'Nombre inteligencia artificial',
     pista: 'Red del cielo',
     curiosidad: 'Skynet es una Inteligencia artificial capaz de controlar el'+

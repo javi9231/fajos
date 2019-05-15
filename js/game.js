@@ -23,7 +23,7 @@ let config = {
   }
 };
 
-let graphics, score = 200, fajoE, fajosEuros, textoTamanio, rectW, rectH, posRectY;
+let graphics, score = 200, fajoE, fajosEuros, textoTamanio, rectW, rectH, posRectY, posicionRect;
 
 let game = new Phaser.Game(config);
 
@@ -47,12 +47,14 @@ function create() {
     }
   });
 
-  const posicionRect = {
-    posX: 100 * escala,
-    posY: totalHeight/4
+  posicionRect = {
+    posX: 50 * escala,
+    posY: totalHeight/4,
+    posXdesplazado: (102 + fontSize)  * escala
   }
-  respuesta(this, 100* escala, preguntas[0].respuestas[0].respuesta, 0xffff00);
-  respuesta(this, (100 + 202) * escala, preguntas[3].respuestas[0].respuesta, 0xff0000);
+
+  respuesta(this, posicionRect.posX, preguntas[0].respuestas[0].respuesta, 0xffff00);
+  respuesta(this, posicionRect.posX + posicionRect.posXdesplazado, preguntas[3].respuestas[0].respuesta, 0xff0000);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -68,11 +70,10 @@ function create() {
     key: 'fajoE',
     repeat: (score / 20) - 1,
     setXY: {
-      x: totalWidth - 102  ,
-      y: totalHeight /4
+      x: totalWidth - posicionRect.posXdesplazado ,
+      y: posicionRect.posY
     }
   });
-
 
   fajosEuros.children.iterate(fajo => {
     fajo.setInteractive({
@@ -127,7 +128,7 @@ function checkOriention(orientation) {
       }
     });
     let rect = scene.add.rectangle(posRectX, posRectY, rectW, rectH).setStrokeStyle(10, rectColor);
-    var container = scene.add.container(containerX, totalHeight/4, [respuestaText, rect]);
+    var container = scene.add.container(containerX, posicionRect.posY, [respuestaText, rect]);
   }
 
   function update() {
@@ -136,6 +137,6 @@ function checkOriention(orientation) {
         fajo.clearTint();//(0xffffff);
     });
 
-    colorearFajos(this, 100* escala, totalHeight/4, rectW, rectH, 0xffff00);
-    colorearFajos(this, (100 + 202) * escala, totalHeight/4, rectW, rectH, 0xff0000);
+    colorearFajos(this, posicionRect.posX, posicionRect.posY, rectW, rectH, 0xffff00);
+    colorearFajos(this, posicionRect.posX + posicionRect.posXdesplazado, posicionRect.posY, rectW, rectH, 0xff0000);
   }
