@@ -1,35 +1,38 @@
-let config = {
-  type: Phaser.AUTO,
-  width: window.innerWidth * window.devicePixelRatio,
-  height: window.innerHeight * window.devicePixelRatio,
-  zoom: 1,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: {
-        y: 0
-      },
-      debug: false
-    }
-  },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }
-};
-
 let graphics, score = 200, fajoE, fajosEuros, textoTamanio, rectW, rectH, posRectY, posicionRect;
-
-let game = new Phaser.Game(config);
-
 let escala = window.devicePixelRatio;
 let totalWidth = window.innerWidth * escala;
 let totalHeight= window.innerHeight * escala;
+
+window.onload = function() {
+  let config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth * window.devicePixelRatio,
+    height: window.innerHeight * window.devicePixelRatio,
+    zoom: 1,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: {
+          y: 0
+        },
+        debug: false
+      }
+    },
+    scene: {
+      preload: preload,
+      create: create,
+      update: update
+    }
+  };
+  window.focus();
+  let game = new Phaser.Game(config);
+  let reloj = new Clock(this, 100, 100, null);
+}
+
 
 function preload() {
   this.load.image('fajoE', 'assets/fajoE.svg');
@@ -39,7 +42,7 @@ function create() {
   this.cameras.main.setBackgroundColor(0xbababa);
   let fontSize = 18 * escala;
   preguntaText = this.add.text(40, 20, preguntas[0].pregunta, {
-    fontSize: fontSize, //'40px',
+    fontSize: fontSize,
     fill: '#000',
     align: 'center',
     wordWrap: {
@@ -85,6 +88,12 @@ function create() {
       this.y = dragY;
     });
   });
+  //  The same as above, but uses a method signature to declare it (shorter, and compatible with GSAP syntax)
+   let timedEvent = this.time.delayedCall(60000, tiempoCumplido, [], this);
+}
+
+function tiempoCumplido(){
+  console.log('Tiempo finalizado');
 }
 
 function colorearFajos (scene, zonaX, zonaY, rW, rH, color){
