@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/javi9231/fajos#readme",
   "dependencies": {
-    "phaser-plugin-game-scale": "github:samme/phaser-plugin-game-scale"
+    
   }
 }
