@@ -4,5 +4,6 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.setPosition(x, y);
     this.respuesta;
   }
-  
+
 }
+ 

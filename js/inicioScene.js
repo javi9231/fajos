@@ -1,6 +1,6 @@
 // import fajoBilletes from "../assets/fajoE.svg";
 // import MedidorTiempo from "../../js/object/MedidorTiempo.js";
-
+ 
 class inicioScene extends Phaser.Scene {
   constructor() {
     super('Juego');

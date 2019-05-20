@@ -1,6 +1,6 @@
 const gameOptions = {
   initialTime: 60
-}
+} 
 
 const cuestionario = [
     {

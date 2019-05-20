@@ -1,6 +1,6 @@
 import barraContenedor from ('../assets/energycontainer.png');
 import barra from ('../assets/energybar.png');
-
+  
 export default class MedidorTiempo extends Phaser.GameObjects.Container {
   constructor(scene, parent = null, name, gameOptions) {
       super(scene);
