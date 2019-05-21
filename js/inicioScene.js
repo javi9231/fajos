@@ -1,6 +1,6 @@
 // import fajoBilletes from "../assets/fajoE.svg";
 // import MedidorTiempo from "../../js/object/MedidorTiempo.js";
- 
+
 class inicioScene extends Phaser.Scene {
   constructor() {
     super('Juego');
@@ -35,9 +35,10 @@ class inicioScene extends Phaser.Scene {
         posY: this.totalHeight / 4,
         posXdesplazado: (100 + this.fontSize) * this.escala
       }
-
-      this.respuesta(this, this.posicionRect.posX, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
-      this.respuesta(this, this.posicionRect.posX + this.posicionRect.posXdesplazado, cuestionario[0].preguntas[0].respuestas[1], 0xff0000);
+      this.gameView = this.add.container();
+      this.res1 = new Respuesta(this, this.gameView, 'contenedor1');// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
+      // this.respuesta(this, this.posicionRect.posX, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
+      // this.respuesta(this, this.posicionRect.posX + this.posicionRect.posXdesplazado, cuestionario[0].preguntas[0].respuestas[1], 0xff0000);
 
       this.graphics = this.add.graphics();
 
