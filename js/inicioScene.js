@@ -31,12 +31,14 @@ class inicioScene extends Phaser.Scene {
       });
 
       this.posicionRect = {
+        escala : this.escala,
+        fontSize: 18 * this.escala,
         posX: 50 * this.escala,
         posY: this.totalHeight / 4,
         posXdesplazado: (100 + this.fontSize) * this.escala
       }
       this.gameView = this.add.container();
-      this.res1 = new Respuesta(this, this.gameView, 'contenedor1');// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
+      this.res1 = new Respuesta(this, this.gameView, this.posicionRect, cuestionario[0].preguntas[0].respuestas[0]);// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
       // this.respuesta(this, this.posicionRect.posX, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
       // this.respuesta(this, this.posicionRect.posX + this.posicionRect.posXdesplazado, cuestionario[0].preguntas[0].respuestas[1], 0xff0000);
 
