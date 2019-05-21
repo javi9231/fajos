@@ -35,16 +35,20 @@ class inicioScene extends Phaser.Scene {
         fontSize: 18 * this.escala,
         posX: 50 * this.escala,
         posY: this.totalHeight / 4,
-        posXdesplazado: (100 + this.fontSize) * this.escala
+        posXfajos: (100 + this.fontSize) * this.escala
       }
       this.gameView = this.add.container();
       this.res1 = new Respuesta(this, this.gameView, this.posicionRect, cuestionario[0].preguntas[0].respuestas[0]);// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
       // this.respuesta(this, this.posicionRect.posX, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
       // this.respuesta(this, this.posicionRect.posX + this.posicionRect.posXdesplazado, cuestionario[0].preguntas[0].respuestas[1], 0xff0000);
+      this.posicionRect.posX += (100 + this.fontSize) * this.escala;
+      this.res2 = new Respuesta(this, this.gameView, this.posicionRect, cuestionario[0].preguntas[0].respuestas[1]);// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
+      this.posicionRect.posX += (100 + this.fontSize) * this.escala;
+      this.res3 = new Respuesta(this, this.gameView, this.posicionRect, cuestionario[0].preguntas[0].respuestas[2]);// this, this.posicionRect.posX, this.posicionRect.posY, null, cuestionario[0].preguntas[0].respuestas[0], 0xffff00);
 
       this.graphics = this.add.graphics();
 
-      this.scoreText = this.add.text(this.totalWidth - 250 * this.escala,
+      this.scoreText = this.add.text(this.totalWidth - 150 * this.escala,
         this.totalHeight - 50 * this.escala, 'score: ' + this.score, {
           fontSize: this.fontSize,
           fill: '#000'
@@ -54,8 +58,8 @@ class inicioScene extends Phaser.Scene {
         key: 'fajoE',
         repeat: (this.score / 20) - 1,
         setXY: {
-          x: this.totalWidth - this.posicionRect.posXdesplazado,
-          y: this.posicionRect.posY
+          x: this.totalWidth - this.posicionRect.posXfajos,
+          y: this.posicionRect.posY - 100
         }
       });
 
