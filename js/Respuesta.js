@@ -7,6 +7,8 @@ class Respuesta extends Phaser.GameObjects.Container {
     }
     this.posX = posicionRect.posX;
     this.posY = posicionRect.posY;
+    this.rectW = posicionRect.rectW;
+    this.rectH = posicionRect.rectH;
     this.escala = posicionRect.escala;
     this.respuesta = respuesta;
     this.rectColor = rectColor;
@@ -23,8 +25,6 @@ class Respuesta extends Phaser.GameObjects.Container {
   //   posXdesplazado: (100 + this.fontSize) * this.escala
   // }
   create () {
-    this.rectW = this.rectH = 100 * this.escala;
-
     this.posRectX = this.rectW / 2;
     this.posRectY = this.rectH / 2;
 
@@ -46,4 +46,12 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.add(rect);
     this.add(respuestaText);
   }
+
+  colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
+    let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.setTint(color); //.destroy();
+    });
+  }
+
 }
