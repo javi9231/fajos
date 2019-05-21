@@ -10,7 +10,8 @@ class inicioScene extends Phaser.Scene {
     this.totalHeight= window.innerHeight * this.escala;
     this.preguntas = cuestionario[0].preguntas.slice();
     this.pregunta = this.resultadoAleatorio(this.preguntas);
-    console.log(this.pregunta);
+    this.colores = juegoConfig.colores;
+    console.log(this.colores);
   }
 
   preload(){
@@ -24,7 +25,7 @@ class inicioScene extends Phaser.Scene {
     // this.medidorView = this.add.container();
     // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
     //   'MedidorTiempo', gameOptions);
-    
+
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
       this.pregunta.pregunta, {
@@ -43,7 +44,8 @@ class inicioScene extends Phaser.Scene {
         rectH: 100 * this.escala,
         escala : this.escala,
         fontSize: 18 * this.escala,
-        posXfajos: (100 + this.fontSize) * this.escala
+        posXfajos: (100 + this.fontSize) * this.escala,
+        color: 0xff0000
       }
 
       this.gameView = this.add.container();
@@ -51,9 +53,10 @@ class inicioScene extends Phaser.Scene {
       this.posicionesRespuestas = [];
 
       while(this.pregunta.respuestas.length > 0){
+        this.posicionRect.color = this.resultadoAleatorio(this.colores);
         this.posicionesRespuestas.push(Object.assign({} , this.posicionRect));
         let respuesta = this.resultadoAleatorio(this.pregunta.respuestas);
-        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta);
+        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
         this.posicionRect.posX += (100 + this.fontSize) * this.escala;
       }
       console.log(this.posicionesRespuestas);
@@ -127,7 +130,7 @@ class inicioScene extends Phaser.Scene {
 
         this.posicionesRespuestas.forEach( elemento => {
           this.colorearFajos(this, elemento.posX, elemento.posY,
-            elemento.rectW, elemento.rectH, 0xffff00);
+            elemento.rectW, elemento.rectH, elemento.color);
 
         });
           // this.colorearFajos(this, this.posicionRect.posX + this.posicionRect.posXdesplazado,
