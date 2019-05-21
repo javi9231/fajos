@@ -1,6 +1,6 @@
 // import fajoBilletes from "../assets/fajoE.svg";
 // import MedidorTiempo from "../../js/object/MedidorTiempo.js";
- 
+
 class inicioScene extends Phaser.Scene {
   constructor() {
     super('Juego');
@@ -15,9 +15,9 @@ class inicioScene extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor(0xbababa);
 
-      // this.medidorView = this.add.container();
-      // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
-      //   'MedidorTiempo', gameOptions);
+      this.medidorView = this.add.container();
+      this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
+        'MedidorTiempo', gameOptions);
 
       this.fontSize = 18 * this.escala;
       let preguntaText = this.add.text(40, 20,
