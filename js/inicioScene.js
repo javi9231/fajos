@@ -17,6 +17,7 @@ class inicioScene extends Phaser.Scene {
 
   preload(){
     this.load.image('fajoE', "./assets/fajoE.svg");
+    this.load.image('fullscreen', "./assets/fullscreen.png");
   }
 
   create() {
@@ -98,7 +99,7 @@ class inicioScene extends Phaser.Scene {
           });
         });
 
-        let fullscreenBtn = this.add.image(60,60,'fajoE').setInteractive()
+        let fullscreenBtn = this.add.image(this.totalWidth - this.fontSize - 20,50,'fullscreen').setScale(this.escala / 4).setInteractive()
 
         var canvas = this.sys.game.canvas;
         var fullscreen = this.sys.game.device.fullscreen;
