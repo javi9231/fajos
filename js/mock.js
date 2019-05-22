@@ -69,9 +69,9 @@ const cuestionario = [
             {
                 "pregunta": " ¿Por qué es especial la edición de este año?",
                 "respuestas": [
-                    " Porque es el año Europeo de Patrimonio Cultural",
+                    "Porque es el año Europeo de Patrimonio Cultural",
                     "Porque es el centenario de la Bienal",
-                    " Porque por primera vez es un evento internacional",
+                    "Porque por primera vez es un evento internacional",
                     "Ninguna de las anteriores"
                 ],
                 "imagen": "",

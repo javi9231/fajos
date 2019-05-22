@@ -28,8 +28,8 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.posRectX = this.rectW / 2;
     this.posRectY = this.rectH / 2;
 
-    let posXrespuestaTxt = (this.posRectX - this.respuesta.length * 32 /
-      this.respuesta.length )/ this.escala - 25;
+    let posXrespuestaTxt = (this.posRectX - this.respuesta.length * this.fontSize /
+      this.respuesta.length )/ this.escala - this.fontSize;
 
     let posYrespuestaTxt =  this.posRectY * 2 + this.fontSize;
 
