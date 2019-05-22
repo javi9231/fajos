@@ -1,6 +1,6 @@
 // import Phaser from 'phaser';
 // import InicioScene from './inicioScene.js';
-  
+
 
 window.onload = function() {
   let config = {
@@ -25,4 +25,5 @@ window.onload = function() {
   };
   window.focus();
   const game = new Phaser.Game(config);
+  window['game']['canvas'][game.device.fullscreen.request]();
 }
