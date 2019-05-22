@@ -25,7 +25,7 @@ class inicioScene extends Phaser.Scene {
     // this.medidorView = this.add.container();
     // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
     //   'MedidorTiempo', gameOptions);
-    let fullscreenBtn = this.add.image(16,16,'fajoE').setInteractive()
+    let fullscreenBtn = this.add.image(60,60,'fajoE').setInteractive()
 
     var canvas = this.sys.game.canvas;
     var fullscreen = this.sys.game.device.fullscreen;
