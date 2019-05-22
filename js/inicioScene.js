@@ -11,6 +11,7 @@ class inicioScene extends Phaser.Scene {
     this.preguntas = cuestionario[0].preguntas.slice();
     this.pregunta = this.resultadoAleatorio(this.preguntas);
     this.colores = juegoConfig.colores;
+    this.nivelJuego = 1;
     console.log(this.colores);
   }
 
@@ -20,7 +21,6 @@ class inicioScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor(0xbababa);
-
 
     // this.medidorView = this.add.container();
     // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
@@ -49,6 +49,15 @@ class inicioScene extends Phaser.Scene {
       }
 
       this.gameView = this.add.container();
+      this.timer = new reloj(this, this.gameView, 'reloj');
+      this.timer.countdown(60);
+
+      this.eventos = this.sys.events;
+      this.eventos.on('countdown', () => {
+        console.log('countdown!!');
+        this.timer.abort();
+      });
+
 
       this.posicionesRespuestas = [];
 
