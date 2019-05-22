@@ -25,10 +25,6 @@ window.onload = function() {
   };
   window.focus();
   const game = new Phaser.Game(config);
-  var canvas = this.sys.game.canvas;
-   var fullscreen = this.sys.game.device.fullscreen;
-
-   canvas[fullscreen.request]();
 
   // window['game']['canvas'][game.device.fullscreen.request]();
 }
