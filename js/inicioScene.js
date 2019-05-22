@@ -25,14 +25,6 @@ class inicioScene extends Phaser.Scene {
     // this.medidorView = this.add.container();
     // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
     //   'MedidorTiempo', gameOptions);
-    let fullscreenBtn = this.add.image(60,60,'fajoE').setInteractive()
-
-    var canvas = this.sys.game.canvas;
-    var fullscreen = this.sys.game.device.fullscreen;
-
-
-
-    fullscreenBtn.on('pointerup',()=>{ canvas[fullscreen.request](); });
 
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
@@ -105,6 +97,16 @@ class inicioScene extends Phaser.Scene {
             this.y = dragY;
           });
         });
+
+        let fullscreenBtn = this.add.image(60,60,'fajoE').setInteractive()
+
+        var canvas = this.sys.game.canvas;
+        var fullscreen = this.sys.game.device.fullscreen;
+
+
+
+        fullscreenBtn.on('pointerup',()=>{ canvas[fullscreen.request](); });
+
       }
 
       colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
