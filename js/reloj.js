@@ -79,7 +79,7 @@ class reloj extends Phaser.GameObjects.Container {
     }
 
     abort() {
-        console.log("Alea iacta est");
+        console.log("abort: Alea iacta est");
         this.setTime(0);
         this.timerEvent.remove();
     }

@@ -45,12 +45,12 @@ class inicioScene extends Phaser.Scene {
 
       this.gameView = this.add.container();
       this.timer = new reloj(this, this.gameView, 'reloj');
-      this.timer.countdown(60);
+      this.timer.countdown(juegoConfig.tiempoPregunta);
 
       this.eventos = this.sys.events;
       this.eventos.on('countdown', () => {
-        console.log('countdown!!');
         this.timer.abort();
+        this.timeIsOver();
       });
       this.eventos.on('resize', this.resize, this);
 
@@ -88,6 +88,19 @@ class inicioScene extends Phaser.Scene {
           });
         });
         var canvas = this.sys.game.canvas;
+      }
+
+      timeIsOver () {
+        console.log('countdown!!');
+        if(this.nivelJuego < 5){
+            this.nivelJuego++;            
+        }else {
+          this.final();
+        }
+      }
+
+      final (){
+        console.log('THE END');
       }
 
       resize () {

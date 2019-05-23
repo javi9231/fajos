@@ -1,6 +1,6 @@
 
 const juegoConfig = {
-  tiempoPregunta: 60,
+  tiempoPregunta: 20,
   rondas: 5,
   comodines:[{
     pista: 1,
