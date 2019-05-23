@@ -12,7 +12,7 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.escala = posicionRect.escala;
     this.respuesta = respuesta;
     this.rectColor = rectColor;
-    this.fontSize = 32;
+    this.fontSize = 32 + this.escala;
     this.name = name;
     this.create();
   }
@@ -28,12 +28,9 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.posRectX = this.rectW / 2;
     this.posRectY = this.rectH / 2;
 
-    let posXrespuestaTxt = (this.posRectX - this.respuesta.length * this.fontSize /
-      this.respuesta.length )/ this.escala - this.fontSize;
-
     let posYrespuestaTxt =  this.posRectY * 2 + this.fontSize;
 
-    const respuestaText = this.scene.add.text(posXrespuestaTxt, posYrespuestaTxt, this.respuesta, {
+    const respuestaText = this.scene.add.text(this.fontSize, posYrespuestaTxt, this.respuesta, {
       fontSize: this.fontSize,
       fill: '#000',
       align: 'center',
@@ -46,12 +43,4 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.add(rect);
     this.add(respuestaText);
   }
-
-  colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
-    let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
-    within.forEach(function(body) {
-      body.gameObject.setTint(color); //.destroy();
-    });
-  }
-
 }

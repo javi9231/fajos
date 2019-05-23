@@ -67,6 +67,62 @@ const cuestionario = [
                 ]
             },
             {
+                "pregunta": "¿Desde qué año se celebra este evento?",
+                "respuestas": [
+                    "Desde el año 2010",
+                    "Es el primer año que se celebra",
+                    "Desde el año 2004",
+                    "Desde el año 2008"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "2",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "Desde el año en el que Zapatero se convirtió en Presidente del Gobierno"
+                    },
+                    {
+                        "_5050": [
+                            "1",
+                            "0"
+                        ]
+                    }
+                ]
+            },
+            {
+                "pregunta": "¿Desde qué año se celebra este evento?",
+                "respuestas": [
+                    "Desde el año 2010",
+                    "Es el primer año que se celebra",
+                    "Desde el año 2004",
+                    "Desde el año 2008"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "2",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "Desde el año en el que Zapatero se convirtió en Presidente del Gobierno"
+                    },
+                    {
+                        "_5050": [
+                            "1",
+                            "0"
+                        ]
+                    }
+                ]
+            },
+            {
                 "pregunta": " ¿Por qué es especial la edición de este año?",
                 "respuestas": [
                     "Porque es el año Europeo de Patrimonio Cultural",

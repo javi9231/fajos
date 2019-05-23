@@ -12,6 +12,7 @@ class inicioScene extends Phaser.Scene {
     this.pregunta = this.resultadoAleatorio(this.preguntas);
     this.colores = juegoConfig.colores;
     this.nivelJuego = 1;
+    this.numeroRespuestas = 4;
     console.log(this.colores);
   }
 
@@ -31,12 +32,13 @@ class inicioScene extends Phaser.Scene {
           width: this.totalWidth - this.fontSize
         }
       });
-
+      this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas ;
+      this.tamanioRespuestaH = this.totalHeight / this.numeroRespuestas ;
       this.posicionRect = {
-        posX: 50 * this.escala,
+        posX: 0,
         posY: this.totalHeight / 4,
-        rectW: 100 * this.escala,
-        rectH: 100 * this.escala,
+        rectW: this.tamanioRespuestaW ,
+        rectH: this.tamanioRespuestaH,
         escala : this.escala,
         fontSize: 18 * this.escala,
         posXfajos: (100 + this.fontSize) * this.escala,
@@ -61,7 +63,7 @@ class inicioScene extends Phaser.Scene {
         this.posicionesRespuestas.push(Object.assign({} , this.posicionRect));
         let respuesta = this.resultadoAleatorio(this.pregunta.respuestas);
         this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
-        this.posicionRect.posX += (100 + this.fontSize) * this.escala;
+        this.posicionRect.posX += (this.tamanioRespuestaW) ;
       }
       console.log(this.posicionesRespuestas);
 
@@ -93,8 +95,11 @@ class inicioScene extends Phaser.Scene {
       timeIsOver () {
         console.log('countdown!!');
         if(this.nivelJuego < 5){
-            this.nivelJuego++;            
+            this.nivelJuego++;
+            this.timer.countdown(juegoConfig.tiempoPregunta);
+            console.log(this.nivelJuego);
         }else {
+          this.timer.abort();
           this.final();
         }
       }
