@@ -1,13 +1,14 @@
 // import Phaser from 'phaser';
 // import InicioScene from './inicioScene.js';
 
-
 window.onload = function() {
   let config = {
     type: Phaser.AUTO,
     width: window.innerWidth * window.devicePixelRatio,
     height: window.innerHeight * window.devicePixelRatio,
     zoom: 1,
+    pixelArt: true,
+    parent: 'phaser-app',
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH
@@ -26,5 +27,4 @@ window.onload = function() {
   window.focus();
   const game = new Phaser.Game(config);
 
-  // window['game']['canvas'][game.device.fullscreen.request]();
 }

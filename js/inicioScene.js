@@ -17,16 +17,10 @@ class inicioScene extends Phaser.Scene {
 
   preload(){
     this.load.image('fajoE', "./assets/fajoE.svg");
-    this.load.image('fullscreen', "./assets/fullscreen.png");
   }
 
   create() {
     this.cameras.main.setBackgroundColor(0xbababa);
-
-    // this.medidorView = this.add.container();
-    // this.medidorTiempo = new MedidorTiempo(this, this.medidorView,
-    //   'MedidorTiempo', gameOptions);
-
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
       this.pregunta.pregunta, {
@@ -58,7 +52,7 @@ class inicioScene extends Phaser.Scene {
         console.log('countdown!!');
         this.timer.abort();
       });
-
+      this.eventos.on('resize', this.resize, this);
 
       this.posicionesRespuestas = [];
 
@@ -98,16 +92,14 @@ class inicioScene extends Phaser.Scene {
             this.y = dragY;
           });
         });
-
-        let fullscreenBtn = this.add.image(this.totalWidth - this.fontSize - 20,50,'fullscreen').setScale(this.escala / 4).setInteractive()
-
         var canvas = this.sys.game.canvas;
-        var fullscreen = this.sys.game.device.fullscreen;
+      }
 
-
-
-        fullscreenBtn.on('pointerup',()=>{ canvas[fullscreen.request](); });
-
+      resize () {
+          let width = window.innerWidth * window.devicePixelRatio;
+          let height = window.innerHeight * window.devicePixelRatio;
+          this.cameras.main.setBounds(0, 0, width, height);
+          console.log(width + ' ' + height);
       }
 
       colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
@@ -145,15 +137,13 @@ class inicioScene extends Phaser.Scene {
 
       update(){
         this.fajosEuros.children.iterate(fajo => {
-          fajo.clearTint(); //(0xffffff);
+          fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
         });
 
         this.posicionesRespuestas.forEach( elemento => {
           this.colorearFajos(this, elemento.posX, elemento.posY,
-            elemento.rectW, elemento.rectH, elemento.color);
-
+          elemento.rectW, elemento.rectH, elemento.color);
         });
-          // this.colorearFajos(this, this.posicionRect.posX + this.posicionRect.posXdesplazado,
-          //   this.posicionRect.posY, this.posicionRect.rectW, this.posicionRect.rectH, 0xff0000);
+
       }
 }
