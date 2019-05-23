@@ -23,7 +23,7 @@ class inicioScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0xbababa);
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
-      this.pregunta.pregunta, {
+      this.pregunta.pregunta + ' score: ' + this.score , {
         fontSize: this.fontSize, //'40px',
         fill: '#000',
         align: 'center',
@@ -66,12 +66,6 @@ class inicioScene extends Phaser.Scene {
       console.log(this.posicionesRespuestas);
 
       this.graphics = this.add.graphics();
-
-      this.scoreText = this.add.text(this.totalWidth - 150 * this.escala,
-        this.totalHeight - 50 * this.escala, 'score: ' + this.score, {
-          fontSize: this.fontSize,
-          fill: '#000'
-        });
 
         this.fajosEuros = this.physics.add.group({
           key: 'fajoE',
