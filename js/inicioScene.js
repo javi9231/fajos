@@ -86,6 +86,7 @@ class inicioScene extends Phaser.Scene {
           fajo.setInteractive({
             draggable: true
           });
+          fajo.setCollideWorldBounds(true);
           fajo.setScale(this.escala / 2);
           fajo.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
