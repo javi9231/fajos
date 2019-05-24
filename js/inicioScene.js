@@ -22,7 +22,7 @@ class inicioScene extends Phaser.Scene {
 
   create() {
 
-    this..scale.on('orientationchange', function(orientation) {
+    this.scale.on('orientationchange', function(orientation) {
     if (orientation === Phaser.Scale.PORTRAIT) {
         console.log('PORTRAIT');
     } else if (orientation === Phaser.Scale.LANDSCAPE) {
