@@ -21,6 +21,7 @@ class inicioScene extends Phaser.Scene {
   }
 
   create() {
+    this.scale.lockOrientation('landscape')
     this.cameras.main.setBackgroundColor(0xbababa);
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
