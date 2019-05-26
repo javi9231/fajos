@@ -29,7 +29,7 @@ class inicioScene extends Phaser.Scene {
           console.log('LANDSCAPE');
       }
     });
-    
+
     this.cameras.main.setBackgroundColor(0xbababa);
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
@@ -42,7 +42,8 @@ class inicioScene extends Phaser.Scene {
         }
       });
       this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas ;
-      this.tamanioRespuestaH = this.totalHeight / this.numeroRespuestas ;
+      this.tamanioRespuestaH = this.totalHeight / 4;
+
       this.posicionRect = {
         posX: 0,
         posY: this.totalHeight / 4,
