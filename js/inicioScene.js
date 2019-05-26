@@ -23,13 +23,13 @@ class inicioScene extends Phaser.Scene {
   create() {
 
     this.scale.on('orientationchange', function(orientation) {
-    if (orientation === Phaser.Scale.PORTRAIT) {
-        console.log('PORTRAIT');
-    } else if (orientation === Phaser.Scale.LANDSCAPE) {
-        console.log('LANDSCAPE');
-    }
-});
-    this.scale.lockOrientation('landscape')
+      if (orientation === Phaser.Scale.PORTRAIT) {
+          console.log('PORTRAIT');
+      } else if (orientation === Phaser.Scale.LANDSCAPE) {
+          console.log('LANDSCAPE');
+      }
+    });
+    
     this.cameras.main.setBackgroundColor(0xbababa);
     this.fontSize = 18 * this.escala;
     let preguntaText = this.add.text(40, 20,
