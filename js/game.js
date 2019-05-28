@@ -22,7 +22,13 @@ window.onload = function() {
         debug: false
       }
     },
-    scene: inicioScene
+    scene: [
+      unoScene,
+      dosScene,
+      tresScene,
+      cuatroScene,
+      cincoScene
+    ]
   };
   window.focus();
   const game = new Phaser.Game(config);

@@ -11,7 +11,7 @@ const cuestionario = [
         "publish": true,
         "preguntas": [
             {
-                "pregunta": "¿Quién organiza el evento?",
+                "pregunta": "1¿Quién organiza el evento?",
                 "respuestas": [
                     "La Diputación de Valladolid",
                     "La Junta de Castilla y León",
@@ -39,7 +39,7 @@ const cuestionario = [
                 ]
             },
             {
-                "pregunta": "¿Desde qué año se celebra este evento?",
+                "pregunta": "2¿Desde qué año se celebra este evento?",
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
@@ -67,7 +67,7 @@ const cuestionario = [
                 ]
             },
             {
-                "pregunta": "¿Desde qué año se celebra este evento?",
+                "pregunta": "3¿Desde qué año se celebra este evento?",
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
@@ -95,7 +95,7 @@ const cuestionario = [
                 ]
             },
             {
-                "pregunta": "¿Desde qué año se celebra este evento?",
+                "pregunta": "4¿Desde qué año se celebra este evento?",
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
@@ -123,7 +123,7 @@ const cuestionario = [
                 ]
             },
             {
-                "pregunta": " ¿Por qué es especial la edición de este año?",
+                "pregunta": "5 ¿Por qué es especial la edición de este año?",
                 "respuestas": [
                     "Porque es el año Europeo de Patrimonio Cultural",
                     "Porque es el centenario de la Bienal",
@@ -131,7 +131,7 @@ const cuestionario = [
                     "Ninguna de las anteriores"
                 ],
                 "imagen": "",
-                "respuestaCorrecta": null,
+                "respuestaCorrecta": 2,
                 "estadisticas": [
                     0,
                     0,
@@ -145,7 +145,7 @@ const cuestionario = [
                     {
                         "_5050": [
                             "1",
-                            "2"
+                            "3"
                         ]
                     }
                 ]
