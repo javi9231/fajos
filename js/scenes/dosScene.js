@@ -1,12 +1,17 @@
 class dosScene extends Phaser.Scene {
-  constructor(datos) {
+  constructor() {
     super('dosScene');
-    console.log(datos);
     this.score = 200;
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight= window.innerHeight * this.escala;
     this.preguntas = cuestionario[0].preguntas.slice();
+  }
+  init(datos){
+    this.score = datos.score;
+    console.log('datos: ');
+    console.log(datos);
+    console.log('Score: ' + this.score);
   }
 
   preload(){
@@ -80,7 +85,7 @@ class dosScene extends Phaser.Scene {
 
     this.fajosEuros = this.physics.add.group({
       key: 'fajoE',
-      repeat: (this.score / 20) - 1,
+      repeat: (this.score /  juegoConfig.valorFajo) - 1,
       setXY: {
         x: this.totalWidth - this.posicionRect.posXfajos,
         y: this.posicionRect.posY - 100
@@ -101,97 +106,113 @@ class dosScene extends Phaser.Scene {
     var canvas = this.sys.game.canvas;
   }
 
-    inicializarScene(){
-      this.pregunta = this.resultadoAleatorio(this.preguntas);
+  inicializarScene(){
+    this.pregunta = this.resultadoAleatorio(this.preguntas);
 
-      if(this.preguntaText){
-        this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score );
+    if(this.preguntaText){
+      this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score );
+    }
+
+    this.colores = juegoConfig.colores.slice();
+    this.nivelJuego = 2;
+    this.numeroRespuestas = 4;
+  }
+
+  timeIsOver () {
+    console.log('Escena2 finalizada');
+    this.eliminarFajosMalColocados();
+    this.timer.abort();
+    this.add.displayList.removeAll();﻿
+    this.scene.start('tresScene',
+    {
+      score: this.score
+    });
+  }
+
+  eliminarFajosMalColocados () {
+    for(let i=0; i< 4; i++){
+      if(i != this.pregunta.respuestaCorrecta){
+        this.eliminarFajos(this, this.posicionesRespuestas[i]);
+      }else {
+        this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
+        juegoConfig.valorFajo;
       }
-
-      this.colores = juegoConfig.colores.slice();
-      this.nivelJuego = 2;
-      this.numeroRespuestas = 4;
     }
+  }
 
-    timeIsOver () {
-      console.log('countdown!!');
+  resize () {
+    let width = window.innerWidth * window.devicePixelRatio;
+    let height = window.innerHeight * window.devicePixelRatio;
+    this.cameras.main.setBounds(0, 0, width, height);
+    console.log(width + ' ' + height);
+  }
 
-      this.timer.abort();
-      this.add.displayList.removeAll();﻿
-      this.scene.start('tresScene', 'eurekaaaa');
+  contarFajos (scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    let contador = 0;
+    within.forEach(function(body) {
+      contador++;
+    });
+    return contador;
+  }
+
+  eliminarFajos (scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.destroy();
+    });
+  }
+
+  colorearFajos(scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.setTint(elemento.color); //.destroy();
+    });
+  }
+
+  /**
+  * Devuelve un objeto del array
+  * eliminando el objeto del array original
+  */
+  resultadoAleatorio(arrayDatos){
+    let longArray = arrayDatos.length;
+    if(longArray < 1)
+    return null;
+    let aleatorio = Math.floor(Math.random()* longArray);
+    let seleccion = arrayDatos[aleatorio];
+    arrayDatos.splice(aleatorio, 1);
+    return seleccion;
+  }
+
+  checkOriention(orientation) {
+    if (orientation === Phaser.Scale.PORTRAIT) {
+      graphics.alpha = 0.2;
+      console.log('PORTRAIT');
+      //text.setVisible(true);
+    } else if (orientation === Phaser.Scale.LANDSCAPE) {
+      graphics.alpha = 1;
+      console.log('LANDSCAPE');
+      //text.setVisible(false);
     }
+  }
 
-    final (){
-      console.log('THE END');
-    }
+  comodin5050(){
+    this.pregunta.comodines[1]._5050.sort().forEach( eliminar =>
+      this.pregunta.respuestas.slice(eliminar,1));
+    console.log(this.pregunta);
+  }
 
-    resize () {
-      let width = window.innerWidth * window.devicePixelRatio;
-      let height = window.innerHeight * window.devicePixelRatio;
-      this.cameras.main.setBounds(0, 0, width, height);
-      console.log(width + ' ' + height);
-    }
+  update(){
+    this.fajosEuros.children.iterate(fajo => {
+      fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
+    });
 
-    colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
-      let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
-      within.forEach(function(body) {
-        body.gameObject.setTint(color); //.destroy();
+    this.posicionesRespuestas.forEach( elemento => {
+      this.colorearFajos(this, elemento);
       });
+
     }
-
-    /**
-    * Devuelve un objeto del array
-    * eliminando el objeto del array original
-    */
-    resultadoAleatorio(arrayDatos){
-      let longArray = arrayDatos.length;
-      if(longArray < 1)
-      return null;
-      let aleatorio = Math.floor(Math.random()* longArray);
-      let seleccion = arrayDatos[aleatorio];
-      arrayDatos.splice(aleatorio, 1);
-      return seleccion;
-    }
-
-    checkOriention(orientation) {
-      if (orientation === Phaser.Scale.PORTRAIT) {
-        graphics.alpha = 0.2;
-        console.log('PORTRAIT');
-        //text.setVisible(true);
-      } else if (orientation === Phaser.Scale.LANDSCAPE) {
-        graphics.alpha = 1;
-        console.log('LANDSCAPE');
-        //text.setVisible(false);
-      }
-    }
-
-    comodin5050(){
-      // let respuesta = this.pregunta.respuestaCorrecta;
-      // "comodines": [
-      //     {
-      //         "pista": "Se encarga de la administración de toda la Comunidad de Castilla y León"
-      //     },
-      //     {
-      //         "_5050": [
-      //             "2",
-      //             "0"
-      //         ]
-      //     }
-      // ]
-      this.pregunta.comodines[1]._5050.sort().forEach( eliminar =>
-        this.pregunta.respuestas.slice(eliminar,1));
-      console.log(this.pregunta);
-    }
-
-    update(){
-      this.fajosEuros.children.iterate(fajo => {
-        fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
-      });
-
-      this.posicionesRespuestas.forEach( elemento => {
-        this.colorearFajos(this, elemento.posX, elemento.posY,
-          elemento.rectW, elemento.rectH, elemento.color);
-        });
-
-      }
-    }
+}

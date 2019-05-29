@@ -9,6 +9,13 @@ class tresScene extends Phaser.Scene {
     this.preguntas = cuestionario[0].preguntas.slice();
   }
 
+  init(datos){
+    this.score = datos.score;
+    console.log('datos: ');
+    console.log(datos);
+    console.log('Score: ' + this.score);
+  }
+
   preload(){
     this.inicializarScene();
     this.load.image('fajoE', "./assets/fajoE.svg");
@@ -83,7 +90,7 @@ class tresScene extends Phaser.Scene {
 
     this.fajosEuros = this.physics.add.group({
       key: 'fajoE',
-      repeat: (this.score / 20) - 1,
+      repeat: (this.score /  juegoConfig.valorFajo) - 1,
       setXY: {
         x: this.totalWidth - this.posicionRect.posXfajos,
         y: this.posicionRect.posY - 100
@@ -124,19 +131,24 @@ class tresScene extends Phaser.Scene {
 
   timeIsOver () {
     console.log('countdown!!');
-    if(this.nivelJuego < 5){
-      this.nivelJuego++;
-      this.timer.abort();
-      this.add.displayList.removeAll();﻿
-      this.scene.start('cuatroScene', 'eurekaaaa');
-    }else {
-      this.timer.abort();
-      this.final();
-    }
+    this.nivelJuego++;
+    this.timer.abort();
+    this.add.displayList.removeAll();﻿
+    this.scene.start('cuatroScene',
+    {
+      score: this.score
+    });
   }
 
-  final (){
-    console.log('THE END');
+  eliminarFajosMalColocados () {
+    for(let i=0; i< 4; i++){
+      if(i != this.pregunta.respuestaCorrecta){
+        this.eliminarFajos(this, this.posicionesRespuestas[i]);
+      }else {
+        this.score = this.contarFajos() *  juegoConfig.valorFajo;
+
+      }
+    }
   }
 
   resize () {
@@ -146,10 +158,29 @@ class tresScene extends Phaser.Scene {
     console.log(width + ' ' + height);
   }
 
-  colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
-    let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
+  contarFajos (scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    let contador = 0;
     within.forEach(function(body) {
-      body.gameObject.setTint(color); //.destroy();
+      contador++;
+    });
+    return contador;
+  }
+
+  eliminarFajos (scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.destroy();
+    });
+  }
+
+  colorearFajos(scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.setTint(elemento.color); //.destroy();
     });
   }
 
@@ -191,11 +222,7 @@ class tresScene extends Phaser.Scene {
     });
 
     this.posicionesRespuestas.forEach( elemento => {
-      if(elemento){
-        this.colorearFajos(this, elemento.posX, elemento.posY,
-        elemento.rectW, elemento.rectH, elemento.color);
-      }
-    });
-
+      this.colorearFajos(this, elemento);
+      });
     }
 }

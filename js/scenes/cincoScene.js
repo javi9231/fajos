@@ -9,6 +9,13 @@ class cincoScene extends Phaser.Scene {
     this.preguntas = cuestionario[0].preguntas.slice();
   }
 
+  init(datos){
+    this.score = datos.score;
+    console.log('datos: ');
+    console.log(datos);
+    console.log('Score: ' + this.score);
+  }
+
   preload(datos){
     console.log('preload:' + datos);
 
@@ -84,7 +91,7 @@ class cincoScene extends Phaser.Scene {
 
     this.fajosEuros = this.physics.add.group({
       key: 'fajoE',
-      repeat: (this.score / 20) - 1,
+      repeat: (this.score /  juegoConfig.valorFajo) - 1,
       setXY: {
         x: this.totalWidth - this.posicionRect.posXfajos,
         y: this.posicionRect.posY - 100
@@ -128,6 +135,17 @@ class cincoScene extends Phaser.Scene {
       console.log('THE END');
     }
 
+    eliminarFajosMalColocados () {
+      for(let i=0; i< 4; i++){
+        if(i != this.pregunta.respuestaCorrecta){
+          this.eliminarFajos(this, this.posicionesRespuestas[i]);
+        }else {
+          this.score = this.contarFajos() *  juegoConfig.valorFajo;
+
+        }
+      }
+    }
+
     resize () {
       let width = window.innerWidth * window.devicePixelRatio;
       let height = window.innerHeight * window.devicePixelRatio;
@@ -135,10 +153,29 @@ class cincoScene extends Phaser.Scene {
       console.log(width + ' ' + height);
     }
 
-    colorearFajos(scene, zonaX, zonaY, rW, rH, color) {
-      let within = scene.physics.overlapRect(zonaX, zonaY, rW, rH, true, true);
+    contarFajos (scene, elemento) {
+      let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+        elemento.rectW, elemento.rectH, true, true);
+      let contador = 0;
       within.forEach(function(body) {
-        body.gameObject.setTint(color); //.destroy();
+        contador++;
+      });
+      return contador;
+    }
+
+    eliminarFajos (scene, elemento) {
+      let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+        elemento.rectW, elemento.rectH, true, true);
+      within.forEach(function(body) {
+        body.gameObject.destroy();
+      });
+    }
+
+    colorearFajos(scene, elemento) {
+      let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+        elemento.rectW, elemento.rectH, true, true);
+      within.forEach(function(body) {
+        body.gameObject.setTint(elemento.color); //.destroy();
       });
     }
 
@@ -170,11 +207,9 @@ class cincoScene extends Phaser.Scene {
 
     comodin5050(){
       this.pregunta.comodines[1]._5050.sort().forEach( eliminar =>
-        this.pregunta.respuestas[eliminar] = null);
-      console.log('comodin 5050');
+        this.pregunta.respuestas.slice(eliminar,1));
       console.log(this.pregunta);
     }
-
 
     update(){
       this.fajosEuros.children.iterate(fajo => {
@@ -182,11 +217,7 @@ class cincoScene extends Phaser.Scene {
       });
 
       this.posicionesRespuestas.forEach( elemento => {
-        if(elemento){
-          this.colorearFajos(this, elemento.posX, elemento.posY,
-          elemento.rectW, elemento.rectH, elemento.color);
-        }
-      });
-
-    }
+        this.colorearFajos(this, elemento);
+        });
+      }
 }

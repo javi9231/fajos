@@ -1,12 +1,9 @@
-const gameOptions = {
-  initialTime: 60
-}
 
 const cuestionario = [
     {
         "_id": "5bb47248c6632b0bde14803a",
         "nombre": "Bienal AR&PA",
-        "tiempo": 100,
+        "tiempo": 60,
         "numeroPreguntas": "",
         "publish": true,
         "preguntas": [

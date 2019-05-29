@@ -1,7 +1,8 @@
 
 const juegoConfig = {
-  tiempoPregunta: 2,
+  tiempoPregunta: 10,
   rondas: 5,
+  valorFajo: 20,
   comodines:[{
     pista: 1,
     eliminar: 1
