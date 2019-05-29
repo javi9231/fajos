@@ -33,15 +33,12 @@ class reloj extends Phaser.GameObjects.Container {
 
         if (parent) parent.add(this);
         this.name = name;
-
         this.seconds = 0;
-
         this.create();
     }
 
     create() {
         const bg = this.bg = this.scene.add.graphics();
-        // bg.fillStyle(0x808080, 0.8);
         bg.fillRect(-70, -40, 135, 85);
 
         this.add(bg);
@@ -79,7 +76,6 @@ class reloj extends Phaser.GameObjects.Container {
     }
 
     abort() {
-        console.log("abort: Alea iacta est");
         this.setTime(0);
         this.timerEvent.remove();
     }

@@ -10,7 +10,7 @@ const cuestionario = [
             {
                 "pregunta": "1¿Quién organiza el evento?",
                 "respuestas": [
-                    "La Diputación de Valladolid",
+                    "xLa Diputación de Valladolid",
                     "La Junta de Castilla y León",
                     "El Ministerio de Educación, Cultura y Deporte",
                     "La Diputación de León"
@@ -40,7 +40,7 @@ const cuestionario = [
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
-                    "Desde el año 2004",
+                    "xDesde el año 2004",
                     "Desde el año 2008"
                 ],
                 "imagen": "",
@@ -68,7 +68,7 @@ const cuestionario = [
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
-                    "Desde el año 2004",
+                    "xDesde el año 2004",
                     "Desde el año 2008"
                 ],
                 "imagen": "",
@@ -96,7 +96,7 @@ const cuestionario = [
                 "respuestas": [
                     "Desde el año 2010",
                     "Es el primer año que se celebra",
-                    "Desde el año 2004",
+                    "xDesde el año 2004",
                     "Desde el año 2008"
                 ],
                 "imagen": "",
@@ -124,7 +124,7 @@ const cuestionario = [
                 "respuestas": [
                     "Porque es el año Europeo de Patrimonio Cultural",
                     "Porque es el centenario de la Bienal",
-                    "Porque por primera vez es un evento internacional",
+                    "xPorque por primera vez es un evento internacional",
                     "Ninguna de las anteriores"
                 ],
                 "imagen": "",

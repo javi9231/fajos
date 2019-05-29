@@ -132,16 +132,12 @@ class tresScene extends Phaser.Scene {
   timeIsOver () {
     console.log('countdown!!');
     this.nivelJuego++;
-    this.timer.abort();
-    if(this.score > 0){
-      this.add.displayList.removeAll();﻿
-      this.scene.start('cuatroScene',
-      {
-        score: this.score
-      });
-    }else {
-      console.log('Sin money');
-    }
+    this.eliminarFajosMalColocados();
+    this.scene.start('FinalRespuesta', {
+      score: this.score || 0,
+      pregunta: this.pregunta,
+      nivelJuego: this.nivelJuego
+    });
   }
 
   eliminarFajosMalColocados () {

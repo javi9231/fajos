@@ -27,7 +27,8 @@ window.onload = function() {
       dosScene,
       tresScene,
       cuatroScene,
-      cincoScene
+      cincoScene,
+      FinalRespuesta
     ]
   };
   window.focus();
