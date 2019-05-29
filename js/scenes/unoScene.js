@@ -118,13 +118,16 @@ class unoScene extends Phaser.Scene {
   timeIsOver () {
     console.log('Tiempo finalizado!!');
     this.eliminarFajosMalColocados();
-
-    this.timer.abort();
-    this.add.displayList.removeAll();﻿
-    this.scene.start('dosScene',
-    {
-      score: this.score
-    });
+    if(this.score > 0){
+      this.timer.abort();
+      this.add.displayList.removeAll();﻿
+      this.scene.start('dosScene',
+      {
+        score: this.score
+      });
+    }else {
+      console.log('Sin money 1');
+    }
   }
 
   eliminarFajosMalColocados () {

@@ -133,11 +133,15 @@ class cuatroScene extends Phaser.Scene {
   timeIsOver () {
     console.log('countdown!!');
     this.timer.abort();
-    this.add.displayList.removeAll();﻿
-    this.scene.start('cincoScene',
-    {
-      score: this.score
-    });
+    if(this.score > 0){
+      this.add.displayList.removeAll();﻿
+      this.scene.start('cincoScene',
+      {
+        score: this.score
+      });
+    }else {
+      console.log('Sin money');
+    }
   }
   eliminarFajosMalColocados () {
     for(let i=0; i< 4; i++){

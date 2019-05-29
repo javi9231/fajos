@@ -122,11 +122,15 @@ class dosScene extends Phaser.Scene {
     console.log('Escena2 finalizada');
     this.eliminarFajosMalColocados();
     this.timer.abort();
-    this.add.displayList.removeAll();﻿
-    this.scene.start('tresScene',
-    {
-      score: this.score
-    });
+    if(this.score > 0){
+      this.add.displayList.removeAll();﻿
+      this.scene.start('tresScene',
+      {
+        score: this.score
+      });
+    }else {
+      console.log('Sin money');
+    }
   }
 
   eliminarFajosMalColocados () {
