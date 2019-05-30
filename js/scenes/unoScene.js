@@ -8,7 +8,7 @@ class unoScene extends Phaser.Scene {
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
-    this.preguntas = cuestionario[0].preguntas.slice();
+    this.preguntas = cuestionario[Phaser.Math.Between(0,1)].preguntas.slice();
   }
 
   preload() {

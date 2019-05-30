@@ -149,5 +149,155 @@ const cuestionario = [
             }
         ],
         "isArcade": true
+    },
+    {
+        "_id": "6bb47248c6632b0bde14803a",
+        "nombre": "Terminator",
+        "tiempo": 60,
+        "numeroPreguntas": "",
+        "publish": true,
+        "preguntas": [
+            {
+                "pregunta": "1Último gesto del T-800 antes de sumergirse en el fuego",
+                "respuestas": [
+                    "Sonreir",
+                    "xLevanta el pulgar",
+                    "Corte de mangas",
+                    "Saca un dedo"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "1",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "O.K."
+                    },
+                    {
+                        "_5050": [
+                            "2",
+                            "0"
+                        ]
+                    }
+                ]
+            },
+            {
+                "pregunta": "2Sarah amenaza al Dr.Silberman con un...",
+                "respuestas": [
+                  "xJeringuilla",
+                    "Cuchillo",
+                    "Pistola",
+                    "Con un cable"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "0",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "Desde el año en el que Zapatero se convirtió en Presidente del Gobierno"
+                    },
+                    {
+                        "_5050": [
+                            "1",
+                            "3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "pregunta": "3Canción cuando Terminator 2 sale del bar",
+                "respuestas": [
+                    "xBad To The Bone",
+                    "Guitars, Cadillacs",
+                    "And this one",
+                    "You Could Be Mine"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "0",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "The Destroyers"
+                    },
+                    {
+                        "_5050": [
+                            "1",
+                            "2"
+                        ]
+                    }
+                ]
+            },
+            {
+                "pregunta": "4Material fabricación T-1000",
+                "respuestas": [
+                    "Silicio",
+                    "Magnam",
+                    "Nicrom",
+                    "xMetal líquido"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": "3",
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "Desde el año en el que Zapatero se convirtió en Presidente del Gobierno"
+                    },
+                    {
+                        "_5050": [
+                            "1",
+                            "0"
+                        ]
+                    }
+                ]
+            },
+            {
+                "pregunta": "5 La inteligencia artificial se llama...",
+                "respuestas": [
+                    "T-600",
+                    "Skynews",
+                    "Brainiac",
+                    "Skynet"
+                ],
+                "imagen": "",
+                "respuestaCorrecta": 3,
+                "estadisticas": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "comodines": [
+                    {
+                        "pista": "Se están celebrando numerosos eventos e iniciativas por todo Europa "
+                    },
+                    {
+                        "_5050": [
+                            "0",
+                            "2"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "isArcade": true
     }
 ];
