@@ -5,18 +5,27 @@ class dosScene extends Phaser.Scene {
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
-    this.preguntas = cuestionario[0].preguntas.slice();
   }
 
   init(datos) {
     this.score = datos.score;
+    this.preguntas = datos.preguntas;
+    this.inicializarScene();
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
   }
 
+  inicializarScene() {
+    // la clase se carga dos veces, así no perdemos una pregunta
+    this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
+
+    this.colores = juegoConfig.colores.slice();
+    this.nivelJuego = 2;
+    this.numeroRespuestas = 4;
+  }
+
   preload() {
-    this.inicializarScene();
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
@@ -107,23 +116,12 @@ class dosScene extends Phaser.Scene {
     var canvas = this.sys.game.canvas;
   }
 
-  inicializarScene() {
-    this.pregunta = this.resultadoAleatorio(this.preguntas);
-
-    if (this.preguntaText) {
-      this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score);
-    }
-
-    this.colores = juegoConfig.colores.slice();
-    this.nivelJuego = 2;
-    this.numeroRespuestas = 4;
-  }
-
   timeIsOver() {
-    console.log('Escena2 finalizada');
+    console.log('Final escena 2');
     this.eliminarFajosMalColocados();
     this.scene.start('FinalRespuesta', {
       score: this.score,
+      preguntas: this.preguntas,
       pregunta: this.pregunta,
       nivelJuego: this.nivelJuego
     });

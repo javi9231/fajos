@@ -1,17 +1,15 @@
 class tresScene extends Phaser.Scene {
   constructor(datos) {
     super('tresScene');
-    console.log(datos);
-    this.score = 200;
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
-    this.preguntas = cuestionario[0].preguntas.slice();
   }
 
   init(datos) {
-    this.inicializarScene();
     this.score = datos.score;
+    this.preguntas = datos.preguntas;
+    this.inicializarScene();
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
@@ -22,11 +20,21 @@ class tresScene extends Phaser.Scene {
   }
 
   inicializarScene() {
-    this.pregunta = this.resultadoAleatorio(this.preguntas);
+    // la clase se carga dos veces, así no perdemos una pregunta
+    this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
     this.colores = juegoConfig.colores.slice();
     this.nivelJuego = 3;
     this.numeroRespuestas = 3;
     this.eliminarUnaRespuesta();
+  }
+
+  eliminarUnaRespuesta() {
+    if(this.pregunta.comodines.length == 2){
+      this.pregunta.respuestas[this.pregunta.comodines[1]._5050.pop()] = null;
+      console.log('eliminarUnaRespuesta: ');
+      console.log(this.pregunta.respuestas);
+      console.log(this.pregunta.comodines[1]._5050);
+    }
   }
 
   create() {
@@ -119,20 +127,14 @@ class tresScene extends Phaser.Scene {
     var canvas = this.sys.game.canvas;
   }
 
-  eliminarUnaRespuesta() {
-    this.pregunta.respuestas[this.pregunta.comodines[1]._5050.pop()] = null;
-    console.log('eliminarUnaRespuesta: ');
-    console.log(this.pregunta.respuestas);
-    console.log(this.pregunta.comodines[1]._5050);
-  }
 
 
   timeIsOver() {
-    console.log('countdown!!');
-    this.nivelJuego++;
+    console.log('Final escena 3');
     this.eliminarFajosMalColocados();
     this.scene.start('FinalRespuesta', {
-      score: this.score || 0,
+      score: this.score,
+      preguntas: this.preguntas,
       pregunta: this.pregunta,
       nivelJuego: this.nivelJuego
     });

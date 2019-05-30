@@ -11,15 +11,22 @@ class cincoScene extends Phaser.Scene {
 
   init(datos) {
     this.score = datos.score;
+    this.preguntas = datos.preguntas;
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
+    this.inicializarScene();
   }
 
-  preload(datos) {
-    console.log('preload:' + datos);
+  inicializarScene() {
+    // la clase se carga dos veces, así no perdemos una pregunta
+    this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
+    this.colores = juegoConfig.colores.slice();
+    this.nivelJuego = 5;
+    this.numeroRespuestas = 2;
+  }
 
-    this.inicializarScene();
+  preload() {
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
@@ -112,24 +119,12 @@ class cincoScene extends Phaser.Scene {
     var canvas = this.sys.game.canvas;
   }
 
-  inicializarScene() {
-    this.pregunta = this.resultadoAleatorio(this.preguntas);
-    if (this.preguntaText) {
-      this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score);
-    }
-
-    this.comodin5050();
-
-    this.colores = juegoConfig.colores.slice();
-    this.nivelJuego = 5;
-    this.numeroRespuestas = 2;
-  }
-
   timeIsOver() {
-    console.log('countdown!!');
+    console.log('Escena 5 final!!');
     this.eliminarFajosMalColocados();
     this.scene.start('FinalRespuesta', {
       score: this.score,
+      preguntas: this.preguntas,
       pregunta: this.pregunta,
       nivelJuego: this.nivelJuego
     });

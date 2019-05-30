@@ -8,24 +8,26 @@ class FinalRespuesta extends Phaser.Scene {
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
     this.fontSize = 32 * this.escala;
+    this.nivelJuego = 1;
   }
 
   init(datos) {
     this.add.displayList.removeAll();
+    this.score = datos.score || 'falta score';
+    this.preguntas = datos.preguntas || 'falta preguntas';
+    this.pregunta = datos.pregunta || 'falta pregunta';
+    // this.nivelJuego = datos.nivelJuego;
+    this.inicializarScene();
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
-    this.score = datos.score || 'falta score';
-    this.pregunta = datos.pregunta || 'falta pregunta';
-    this.nivelJuego = datos.nivelJuego;
-    this.inicializarScene();
   }
 
   preload() {
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
-  inicializarScene () {
+  inicializarScene() {
     this.preguntaText = this.add.text(40, this.totalHeight / 4,
       this.pregunta.respuestas[this.pregunta.respuestaCorrecta] + '\n Puntos: ' + this.score, {
         fontSize: this.fontSize,
@@ -76,33 +78,45 @@ class FinalRespuesta extends Phaser.Scene {
     if (this.score > 0) {
       switch (this.nivelJuego) {
         case 1:
+          this.scene.remove('unoScene');
           this.scene.start('dosScene', {
-            score: this.score
+            score: this.score,
+            preguntas: this.preguntas
           });
           break;
         case 2:
+          this.scene.remove('dosScene');
           this.scene.start('tresScene', {
-            score: this.score
+            score: this.score,
+            preguntas: this.preguntas
           });
           break;
         case 3:
+          this.scene.remove('tresScene');
           this.scene.start('cuatroScene', {
-            score: this.score
+            score: this.score,
+            preguntas: this.preguntas
           });
           break;
         case 4:
+          this.scene.remove('cuatroScene');
           this.scene.start('cincoScene', {
-            score: this.score
+            score: this.score,
+            preguntas: this.preguntas
           });
           break;
         default:
           break;
       }
     }
+    this.nivelJuego++;
     console.log('pasaScene Nivel' + this.nivelJuego);
     console.log('puntuacion ' + this.score);
   }
 
+  liberarScene() {
+
+  }
   update() {
 
   }

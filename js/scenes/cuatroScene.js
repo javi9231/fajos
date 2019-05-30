@@ -1,28 +1,43 @@
 class cuatroScene extends Phaser.Scene {
   constructor(datos) {
     super('cuatroScene');
-    console.log(datos);
-    this.score = 200;
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
-    this.totalHeight= window.innerHeight * this.escala;
-    this.preguntas = cuestionario[0].preguntas.slice();
+    this.totalHeight = window.innerHeight * this.escala;
   }
 
-  init(datos){
+  init(datos) {
     this.score = datos.score;
+    this.preguntas = datos.preguntas;
+    this.inicializarScene();
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
   }
 
-  preload(){
-    this.inicializarScene();
+  preload() {
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
-  create() {
+  inicializarScene() {
+    // la clase se carga dos veces, así no perdemos una pregunta
+    this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
+    this.colores = juegoConfig.colores.slice();
+    this.nivelJuego = 4;
+    this.numeroRespuestas = 3;
+    this.eliminarUnaRespuesta();
+  }
 
+  eliminarUnaRespuesta() {
+    if (this.pregunta.comodines.length == 2) {
+      this.pregunta.respuestas[this.pregunta.comodines[1]._5050.pop()] = null;
+      console.log('eliminarUnaRespuesta: ');
+      console.log(this.pregunta.respuestas);
+      console.log(this.pregunta.comodines[1]._5050);
+    }
+  }
+
+  create() {
     this.scale.on('orientationchange', function(orientation) {
       if (orientation === Phaser.Scale.PORTRAIT) {
         console.log('PORTRAIT');
@@ -34,9 +49,9 @@ class cuatroScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0xbababa);
     this.fontSize = 18 * this.escala;
     // this.muestraPregunta();
-    if(!this.preguntaText){
+    if (!this.preguntaText) {
       this.preguntaText = this.add.text(40, 20,
-        this.pregunta.pregunta + ' score: ' + this.score , {
+        this.pregunta.pregunta + ' score: ' + this.score, {
           fontSize: this.fontSize, //'40px',
           fill: '#000',
           align: 'center',
@@ -45,15 +60,15 @@ class cuatroScene extends Phaser.Scene {
           }
         });
     }
-    this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas ;
+    this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas;
     this.tamanioRespuestaH = this.totalHeight / 4;
 
     this.posicionRect = {
       posX: 0,
       posY: this.totalHeight / 4,
-      rectW: this.tamanioRespuestaW ,
+      rectW: this.tamanioRespuestaW,
       rectH: this.tamanioRespuestaH,
-      escala : this.escala,
+      escala: this.escala,
       fontSize: 18 * this.escala,
       posXfajos: (100 + this.fontSize) * this.escala,
       color: 0xff0000
@@ -72,15 +87,16 @@ class cuatroScene extends Phaser.Scene {
 
     this.posicionesRespuestas = [];
 
+
     this.pregunta.respuestas.forEach(respuesta => {
-      if(respuesta != null){
+      if (respuesta != null) {
         this.posicionRect.color = this.resultadoAleatorio(this.colores);
-        this.posicionesRespuestas.push(Object.assign({} , this.posicionRect));
+        this.posicionesRespuestas.push(Object.assign({}, this.posicionRect));
 
         this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
-        this.posicionRect.posX += (this.tamanioRespuestaW) ;
+        this.posicionRect.posX += (this.tamanioRespuestaW);
         console.log(this.posicionesRespuestas);
-      }else{
+      } else {
         this.posicionesRespuestas.push(null);
       }
     });
@@ -89,7 +105,7 @@ class cuatroScene extends Phaser.Scene {
 
     this.fajosEuros = this.physics.add.group({
       key: 'fajoE',
-      repeat: (this.score /  juegoConfig.valorFajo) - 1,
+      repeat: (this.score / juegoConfig.valorFajo) - 1,
       setXY: {
         x: this.totalWidth - this.posicionRect.posXfajos,
         y: this.posicionRect.posY - 100
@@ -110,31 +126,12 @@ class cuatroScene extends Phaser.Scene {
     var canvas = this.sys.game.canvas;
   }
 
-  inicializarScene(){
-    this.pregunta = this.resultadoAleatorio(this.preguntas);
-
-    if(this.preguntaText){
-      this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score );
-    }
-
-    this.colores = juegoConfig.colores.slice();
-    this.nivelJuego = 4;
-    this.numeroRespuestas = 3;
-    this.eliminarUnaRespuesta();
-  }
-
-  eliminarUnaRespuesta () {
-    this.pregunta.respuestas[this.pregunta.comodines[1]._5050.pop()] = null;
-    console.log('eliminarUnaRespuesta: ');
-    console.log(this.pregunta.respuestas);
-    console.log(this.pregunta.comodines[1]._5050);
-  }
-
-  timeIsOver () {
-    console.log('countdown!!');
+  timeIsOver() {
+    console.log('Final escena 4');
     this.eliminarFajosMalColocados();
     this.scene.start('FinalRespuesta', {
       score: this.score,
+      preguntas: this.preguntas,
       pregunta: this.pregunta,
       nivelJuego: this.nivelJuego
     });
@@ -152,6 +149,7 @@ class cuatroScene extends Phaser.Scene {
       }
     }
   }
+
   resize() {
     let width = window.innerWidth * window.devicePixelRatio;
     let height = window.innerHeight * window.devicePixelRatio;
@@ -186,14 +184,14 @@ class cuatroScene extends Phaser.Scene {
   }
 
   /**
-  * Devuelve un objeto del array
-  * eliminando el objeto del array original
-  */
-  resultadoAleatorio(arrayDatos){
+   * Devuelve un objeto del array
+   * eliminando el objeto del array original
+   */
+  resultadoAleatorio(arrayDatos) {
     let longArray = arrayDatos.length;
-    if(longArray < 1)
-    return null;
-    let aleatorio = Math.floor(Math.random()* longArray);
+    if (longArray < 1)
+      return null;
+    let aleatorio = Math.floor(Math.random() * longArray);
     let seleccion = arrayDatos[aleatorio];
     arrayDatos.splice(aleatorio, 1);
     return seleccion;
@@ -211,21 +209,21 @@ class cuatroScene extends Phaser.Scene {
     }
   }
 
-  comodin5050(){
-    this.pregunta.comodines[1]._5050.sort().forEach( eliminar =>
-      this.pregunta.respuestas.slice(eliminar,1));
+  comodin5050() {
+    this.pregunta.comodines[1]._5050.sort().forEach(eliminar =>
+      this.pregunta.respuestas.slice(eliminar, 1));
     console.log(this.pregunta);
   }
 
-  update(){
+  update() {
     this.fajosEuros.children.iterate(fajo => {
       fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
     });
 
-    this.posicionesRespuestas.forEach( elemento => {
-        if(elemento){
-          this.colorearFajos(this, elemento);
-        }
-      });
-    }
+    this.posicionesRespuestas.forEach(elemento => {
+      if (elemento) {
+        this.colorearFajos(this, elemento);
+      }
+    });
+  }
 }

@@ -17,7 +17,8 @@ class unoScene extends Phaser.Scene {
   }
 
   inicializarScene() {
-    this.pregunta = this.resultadoAleatorio(this.preguntas);
+    // la clase se carga dos veces, así no perdemos una pregunta
+    this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
 
     if (this.preguntaText) {
       this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score);
@@ -106,7 +107,7 @@ class unoScene extends Phaser.Scene {
         draggable: true
       });
       fajo.setCollideWorldBounds(true);
-      fajo.setScale(this.escala / 2);
+      fajo.setScale(this.escala);
       fajo.on('drag', function(pointer, dragX, dragY) {
         this.x = dragX;
         this.y = dragY;
@@ -116,10 +117,11 @@ class unoScene extends Phaser.Scene {
   }
 
   timeIsOver() {
-    console.log('Tiempo finalizado!!');
+    console.log('Final escena 1');
     this.eliminarFajosMalColocados();
     this.scene.start('FinalRespuesta', {
       score: this.score,
+      preguntas: this.preguntas,
       pregunta: this.pregunta,
       nivelJuego: this.nivelJuego
     });
