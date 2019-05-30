@@ -53,8 +53,8 @@ class FinalRespuesta extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(0xbababa);
 
-    this.input.on('pointerup', function(pointer){
-        this.scene.timeIsOver();
+    this.input.on('pointerup', function(pointer) {
+      this.scene.timeIsOver();
     });
   }
 
@@ -64,7 +64,8 @@ class FinalRespuesta extends Phaser.Scene {
       this.pasaScene();
     } else {
       console.log('Sin money 1');
-      this.scene.stop('FinalRespuesta');
+      this.scene.remove('cincoScene');
+      this.scene.start('FinalNoMoney');
     }
   }
 
@@ -102,6 +103,9 @@ class FinalRespuesta extends Phaser.Scene {
         default:
           break;
       }
+    }else {
+      this.scene.remove('cincoScene');
+      this.scene.start('FinalNoMoney');
     }
     this.nivelJuego++;
     console.log('pasaScene Nivel' + this.nivelJuego);

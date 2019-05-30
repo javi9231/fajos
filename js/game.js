@@ -28,7 +28,8 @@ window.onload = function() {
       tresScene,
       cuatroScene,
       cincoScene,
-      FinalRespuesta
+      FinalRespuesta,
+      FinalNoMoney
     ]
   };
   window.focus();
