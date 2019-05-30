@@ -29,7 +29,8 @@ window.onload = function() {
       cuatroScene,
       cincoScene,
       FinalRespuesta,
-      FinalNoMoney
+      FinalNoMoney,
+      FinalGanador
     ]
   };
   window.focus();

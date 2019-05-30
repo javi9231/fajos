@@ -100,6 +100,13 @@ class FinalRespuesta extends Phaser.Scene {
             preguntas: this.preguntas
           });
           break;
+        case 5:
+          if(this.score > 0){
+            this.scene.remove('cincoScene');
+            this.scene.start('FinalGanador', {
+              score: this.score
+            });
+          }
         default:
           break;
       }

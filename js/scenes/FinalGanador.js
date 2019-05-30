@@ -1,13 +1,17 @@
 // import fajoBilletes from "../assets/fajoE.svg";
 // import MedidorTiempo from "../../js/object/MedidorTiempo.js";
 
-class FinalNoMoney extends Phaser.Scene {
+class FinalGanador extends Phaser.Scene {
   constructor() {
-    super('FinalNoMoney');
+    super('FinalGanador');
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
     this.fontSize = 32 * this.escala;
+  }
+
+  init(datos) {
+    this.score = datos.score;
   }
 
   preload() {
@@ -24,8 +28,9 @@ class FinalNoMoney extends Phaser.Scene {
       }
     });
 
-    this.textoPerdedor = this.add.text(40, this.totalHeight / 4,
-      'Lo sentimos lo ha perdido todo, vuelva a intentarlo o te vas a rendir ahora', {
+    this.textoGanador = this.add.text(40, this.totalHeight / 4,
+      'Eres una máquina chechual y has conseguido ' + '\n'
+      + 'Premio: ' + this.score , {
         fontSize: this.fontSize,
         fill: '#000',
         align: 'center',
