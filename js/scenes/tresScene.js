@@ -140,7 +140,7 @@ class tresScene extends Phaser.Scene {
 
   eliminarFajosMalColocados() {
     for (let i = 0; i < 4; i++) {
-      if (this.posicionesRespuestas != null) {
+      if (this.posicionesRespuestas[i] != null) {
         if (i != this.pregunta.respuestaCorrecta) {
           this.eliminarFajos(this, this.posicionesRespuestas[i]);
         } else if (i == this.pregunta.respuestaCorrecta) {

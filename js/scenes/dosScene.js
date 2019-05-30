@@ -129,16 +129,19 @@ class dosScene extends Phaser.Scene {
     });
   }
 
-  eliminarFajosMalColocados () {
-    for(let i=0; i< 4; i++){
-      if(i != this.pregunta.respuestaCorrecta && this.posicionesRespuestas[i] != null){
-        this.eliminarFajos(this, this.posicionesRespuestas[i]);
-      }else {
-        this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
-          juegoConfig.valorFajo;
+  eliminarFajosMalColocados() {
+    for (let i = 0; i < 4; i++) {
+      if (this.posicionesRespuestas[i] != null) {
+        if (i != this.pregunta.respuestaCorrecta) {
+          this.eliminarFajos(this, this.posicionesRespuestas[i]);
+        } else if (i == this.pregunta.respuestaCorrecta) {
+          this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
+            juegoConfig.valorFajo;
+        }
       }
     }
   }
+
 
   resize() {
     let width = window.innerWidth * window.devicePixelRatio;
