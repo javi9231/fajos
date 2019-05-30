@@ -13,7 +13,7 @@ class FinalRespuesta extends Phaser.Scene {
 
   init(datos) {
     this.add.displayList.removeAll();
-    this.score = datos.score || 'falta score';
+    this.score = datos.score;
     this.preguntas = datos.preguntas || 'falta preguntas';
     this.pregunta = datos.pregunta || 'falta pregunta';
     // this.nivelJuego = datos.nivelJuego;
