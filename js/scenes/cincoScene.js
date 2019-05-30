@@ -24,6 +24,7 @@ class cincoScene extends Phaser.Scene {
     this.colores = juegoConfig.colores.slice();
     this.nivelJuego = 5;
     this.numeroRespuestas = 2;
+    this.comodin5050();
   }
 
   preload() {
@@ -31,7 +32,6 @@ class cincoScene extends Phaser.Scene {
   }
 
   create() {
-
     this.scale.on('orientationchange', function(orientation) {
       if (orientation === Phaser.Scale.PORTRAIT) {
         console.log('PORTRAIT');
@@ -204,7 +204,7 @@ class cincoScene extends Phaser.Scene {
 
   comodin5050() {
     this.pregunta.comodines[1]._5050.sort().forEach(eliminar =>
-      this.pregunta.respuestas.slice(eliminar, 1));
+      this.pregunta.respuestas[eliminar] = null);
     console.log(this.pregunta);
   }
 

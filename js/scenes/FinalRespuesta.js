@@ -53,14 +53,8 @@ class FinalRespuesta extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(0xbababa);
 
-    this.gameView = this.add.container();
-    this.timer = new reloj(this, this.gameView, 'reloj');
-    this.timer.countdown(juegoConfig.tiempoMuestraResultado);
-
-    this.eventos = this.sys.events;
-    this.eventos.on('countdown', () => {
-      this.timer.abort();
-      this.timeIsOver();
+    this.input.on('pointerup', function(pointer){
+        this.scene.timeIsOver();
     });
   }
 
