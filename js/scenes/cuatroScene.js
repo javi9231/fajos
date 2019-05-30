@@ -139,25 +139,27 @@ class cuatroScene extends Phaser.Scene {
       nivelJuego: this.nivelJuego
     });
   }
-  eliminarFajosMalColocados () {
-    for(let i=0; i< 4; i++){
-      if(i != this.pregunta.respuestaCorrecta){
-        this.eliminarFajos(this, this.posicionesRespuestas[i]);
-      }else {
-        this.score = this.contarFajos() *  juegoConfig.valorFajo;
-
+  
+  eliminarFajosMalColocados() {
+    for (let i = 0; i < 4; i++) {
+      if (this.posicionesRespuestas != null) {
+        if (i != this.pregunta.respuestaCorrecta) {
+          this.eliminarFajos(this, this.posicionesRespuestas[i]);
+        } else if (i == this.pregunta.respuestaCorrecta) {
+          this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
+            juegoConfig.valorFajo;
+        }
       }
     }
   }
-
-  resize () {
+  resize() {
     let width = window.innerWidth * window.devicePixelRatio;
     let height = window.innerHeight * window.devicePixelRatio;
     this.cameras.main.setBounds(0, 0, width, height);
     console.log(width + ' ' + height);
   }
 
-  contarFajos (scene, elemento) {
+  contarFajos(scene, elemento) {
     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
       elemento.rectW, elemento.rectH, true, true);
     let contador = 0;
@@ -167,7 +169,7 @@ class cuatroScene extends Phaser.Scene {
     return contador;
   }
 
-  eliminarFajos (scene, elemento) {
+  eliminarFajos(scene, elemento) {
     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
       elemento.rectW, elemento.rectH, true, true);
     within.forEach(function(body) {
@@ -221,8 +223,9 @@ class cuatroScene extends Phaser.Scene {
     });
 
     this.posicionesRespuestas.forEach( elemento => {
-      this.colorearFajos(this, elemento);
+        if(elemento){
+          this.colorearFajos(this, elemento);
+        }
       });
-
     }
 }

@@ -129,11 +129,11 @@ class dosScene extends Phaser.Scene {
     });
   }
 
-  eliminarFajosMalColocados() {
-    for (let i = 0; i < 4; i++) {
-      if (i != this.pregunta.respuestaCorrecta) {
+  eliminarFajosMalColocados () {
+    for(let i=0; i< 4; i++){
+      if(i != this.pregunta.respuestaCorrecta && this.posicionesRespuestas[i] != null){
         this.eliminarFajos(this, this.posicionesRespuestas[i]);
-      } else {
+      }else {
         this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
           juegoConfig.valorFajo;
       }
@@ -205,14 +205,15 @@ class dosScene extends Phaser.Scene {
     console.log(this.pregunta);
   }
 
-  update() {
+  update(){
     this.fajosEuros.children.iterate(fajo => {
       fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
     });
 
-    this.posicionesRespuestas.forEach(elemento => {
-      this.colorearFajos(this, elemento);
-    });
-
-  }
+    this.posicionesRespuestas.forEach( elemento => {
+        if(elemento){
+          this.colorearFajos(this, elemento);
+        }
+      });
+    }
 }

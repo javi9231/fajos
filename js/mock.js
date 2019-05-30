@@ -10,8 +10,8 @@ const cuestionario = [
             {
                 "pregunta": "1¿Quién organiza el evento?",
                 "respuestas": [
-                    "xLa Diputación de Valladolid",
-                    "La Junta de Castilla y León",
+                    "La Diputación de Valladolid",
+                    "xLa Junta de Castilla y León",
                     "El Ministerio de Educación, Cultura y Deporte",
                     "La Diputación de León"
                 ],

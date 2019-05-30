@@ -118,8 +118,6 @@ class unoScene extends Phaser.Scene {
   timeIsOver() {
     console.log('Tiempo finalizado!!');
     this.eliminarFajosMalColocados();
-    this.add.displayList.removeAll();
-
     this.scene.start('FinalRespuesta', {
       score: this.score,
       pregunta: this.pregunta,
@@ -127,94 +125,97 @@ class unoScene extends Phaser.Scene {
     });
   }
 
-/**
- * Los fajos que no se encuentran en la respuesta correcta se eliminan
- * y los que estan en la posicion correcta se pasan a la puntuacion general
- */
-eliminarFajosMalColocados() {
-  for (let i = 0; i < 4; i++) {
-    if (i != this.pregunta.respuestaCorrecta) {
-      this.eliminarFajos(this, this.posicionesRespuestas[i]);
-    } else {
-      this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
-        juegoConfig.valorFajo;
+  /**
+   * Los fajos que no se encuentran en la respuesta correcta se eliminan
+   * y los que estan en la posicion correcta se pasan a la puntuacion general
+   */
+   eliminarFajosMalColocados() {
+     for (let i = 0; i < 4; i++) {
+       if (this.posicionesRespuestas != null) {
+         if (i != this.pregunta.respuestaCorrecta) {
+           this.eliminarFajos(this, this.posicionesRespuestas[i]);
+         } else if (i == this.pregunta.respuestaCorrecta) {
+           this.score = this.contarFajos(this, this.posicionesRespuestas[i]) *
+             juegoConfig.valorFajo;
+         }
+       }
+     }
+   }
+
+   resize () {
+     let width = window.innerWidth * window.devicePixelRatio;
+     let height = window.innerHeight * window.devicePixelRatio;
+     this.cameras.main.setBounds(0, 0, width, height);
+     console.log(width + ' ' + height);
+   }
+
+   contarFajos (scene, elemento) {
+     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+       elemento.rectW, elemento.rectH, true, true);
+     let contador = 0;
+     within.forEach(function(body) {
+       contador++;
+     });
+     return contador;
+   }
+
+   eliminarFajos (scene, elemento) {
+     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+       elemento.rectW, elemento.rectH, true, true);
+     within.forEach(function(body) {
+       body.gameObject.destroy();
+     });
+   }
+
+  colorearFajos(scene, elemento) {
+    let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
+      elemento.rectW, elemento.rectH, true, true);
+    within.forEach(function(body) {
+      body.gameObject.setTint(elemento.color); //.destroy();
+    });
+  }
+
+  /**
+   * Devuelve un objeto del array
+   * eliminando el objeto del array original
+   */
+  resultadoAleatorio(arrayDatos) {
+    let longArray = arrayDatos.length;
+    if (longArray < 1)
+      return null;
+    let aleatorio = Math.floor(Math.random() * longArray);
+    let seleccion = arrayDatos[aleatorio];
+    arrayDatos.splice(aleatorio, 1);
+    return seleccion;
+  }
+
+  checkOriention(orientation) {
+    if (orientation === Phaser.Scale.PORTRAIT) {
+      graphics.alpha = 0.2;
+      console.log('PORTRAIT');
+      //text.setVisible(true);
+    } else if (orientation === Phaser.Scale.LANDSCAPE) {
+      graphics.alpha = 1;
+      console.log('LANDSCAPE');
+      //text.setVisible(false);
     }
   }
-}
 
-resize() {
-  let width = window.innerWidth * window.devicePixelRatio;
-  let height = window.innerHeight * window.devicePixelRatio;
-  this.cameras.main.setBounds(0, 0, width, height);
-  console.log(width + ' ' + height);
-}
-
-contarFajos(scene, elemento) {
-  let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
-    elemento.rectW, elemento.rectH, true, true);
-  let contador = 0;
-  within.forEach(function(body) {
-    contador++;
-  });
-  return contador;
-}
-
-eliminarFajos(scene, elemento) {
-  let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
-    elemento.rectW, elemento.rectH, true, true);
-  within.forEach(function(body) {
-    body.gameObject.destroy();
-  });
-}
-
-colorearFajos(scene, elemento) {
-  let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
-    elemento.rectW, elemento.rectH, true, true);
-  within.forEach(function(body) {
-    body.gameObject.setTint(elemento.color); //.destroy();
-  });
-}
-
-/**
- * Devuelve un objeto del array
- * eliminando el objeto del array original
- */
-resultadoAleatorio(arrayDatos) {
-  let longArray = arrayDatos.length;
-  if (longArray < 1)
-    return null;
-  let aleatorio = Math.floor(Math.random() * longArray);
-  let seleccion = arrayDatos[aleatorio];
-  arrayDatos.splice(aleatorio, 1);
-  return seleccion;
-}
-
-checkOriention(orientation) {
-  if (orientation === Phaser.Scale.PORTRAIT) {
-    graphics.alpha = 0.2;
-    console.log('PORTRAIT');
-    //text.setVisible(true);
-  } else if (orientation === Phaser.Scale.LANDSCAPE) {
-    graphics.alpha = 1;
-    console.log('LANDSCAPE');
-    //text.setVisible(false);
+  comodin5050() {
+    this.pregunta.comodines[1]._5050.sort().forEach(eliminar =>
+      this.pregunta.respuestas.slice(eliminar, 1));
+    console.log(this.pregunta);
   }
-}
 
-comodin5050() {
-  this.pregunta.comodines[1]._5050.sort().forEach(eliminar =>
-    this.pregunta.respuestas.slice(eliminar, 1));
-  console.log(this.pregunta);
-}
+  update() {
+    this.fajosEuros.children.iterate(fajo => {
+      fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
+    });
 
-update() {
-  this.fajosEuros.children.iterate(fajo => {
-    fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
-  });
-
-  this.posicionesRespuestas.forEach(elemento => {
-    this.colorearFajos(this, elemento);
-  });
-
-}
+    this.posicionesRespuestas.forEach(elemento => {
+      if (elemento) {
+        this.colorearFajos(this, elemento);
+      }
+    });
+  }
 }

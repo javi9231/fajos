@@ -11,34 +11,31 @@ class FinalRespuesta extends Phaser.Scene {
   }
 
   init(datos) {
-    this.score = datos.score || 'falta score';
-    this.pregunta = datos.pregunta || 'falta pregunta';
-    this.nivelJuego = datos.nivelJuego;
-
+    this.add.displayList.removeAll();
     console.log('datos: ');
     console.log(datos);
     console.log('Score: ' + this.score);
+    this.score = datos.score || 'falta score';
+    this.pregunta = datos.pregunta || 'falta pregunta';
+    this.nivelJuego = datos.nivelJuego;
+    this.inicializarScene();
   }
 
   preload() {
-    this.inicializarScene();
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
-  inicializarScene() {
-    if (this.preguntaText) {
-      this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score);
-    } else {
-      this.preguntaText = this.add.text(40, this.totalHeight / 4,
-        this.pregunta.respuestas[this.pregunta.respuestaCorrecta] + '\n Puntos: ' + this.score, {
-          fontSize: this.fontSize,
-          fill: '#000',
-          align: 'center',
-          wordWrap: {
-            width: this.totalWidth - this.fontSize
-          }
-        });
-    }
+  inicializarScene () {
+    this.preguntaText = this.add.text(40, this.totalHeight / 4,
+      this.pregunta.respuestas[this.pregunta.respuestaCorrecta] + '\n Puntos: ' + this.score, {
+        fontSize: this.fontSize,
+        fill: '#000',
+        align: 'center',
+        wordWrap: {
+          width: this.totalWidth - this.fontSize
+        }
+      });
+
     this.colores = juegoConfig.colores.slice();
   }
 
@@ -53,19 +50,6 @@ class FinalRespuesta extends Phaser.Scene {
     });
 
     this.cameras.main.setBackgroundColor(0xbababa);
-    this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas;
-    this.tamanioRespuestaH = this.totalHeight / 4;
-
-    this.posicionRect = {
-      posX: 0,
-      posY: this.totalHeight / 4,
-      rectW: this.tamanioRespuestaW,
-      rectH: this.tamanioRespuestaH,
-      escala: this.escala,
-      fontSize: 18 * this.escala,
-      posXfajos: (100 + this.fontSize) * this.escala,
-      color: 0xff0000
-    }
 
     this.gameView = this.add.container();
     this.timer = new reloj(this, this.gameView, 'reloj');
@@ -81,12 +65,10 @@ class FinalRespuesta extends Phaser.Scene {
   timeIsOver() {
     console.log('Tiempo finalizado!!');
     if (this.score > 0) {
-      this.add.displayList.removeAll();
-      this.scene.start('dosScene', {
-        score: this.score
-      });
+      this.pasaScene();
     } else {
       console.log('Sin money 1');
+      this.scene.stop('FinalRespuesta');
     }
   }
 
@@ -94,36 +76,31 @@ class FinalRespuesta extends Phaser.Scene {
     if (this.score > 0) {
       switch (this.nivelJuego) {
         case 1:
-          // this.add.displayList.removeAll();
           this.scene.start('dosScene', {
             score: this.score
           });
           break;
         case 2:
-          //this.add.displayList.removeAll();
           this.scene.start('tresScene', {
             score: this.score
           });
           break;
         case 3:
-          // this.add.displayList.removeAll();
           this.scene.start('cuatroScene', {
             score: this.score
           });
           break;
         case 4:
-          // this.add.displayList.removeAll();
           this.scene.start('cincoScene', {
             score: this.score
           });
           break;
-
         default:
           break;
       }
-      this.scene.restart();
     }
-    console.log('Fin');
+    console.log('pasaScene Nivel' + this.nivelJuego);
+    console.log('puntuacion ' + this.score);
   }
 
   update() {
