@@ -1,21 +1,20 @@
 class cincoScene extends Phaser.Scene {
   constructor(datos) {
     super('cincoScene');
-    console.log(datos);
-    this.score = 200;
-    this.escala = window.devicePixelRatio;
-    this.totalWidth = window.innerWidth * this.escala;
-    this.totalHeight = window.innerHeight * this.escala;
-    this.preguntas = cuestionario[0].preguntas.slice();
   }
 
   init(datos) {
     this.score = datos.score;
     this.preguntas = datos.preguntas;
-    console.log('datos: ');
-    console.log(datos);
-    console.log('Score: ' + this.score);
-    this.inicializarScene();
+  }
+
+  getSizes(){
+    let sizes = new Sizes();
+    this.escala = sizes.escala;
+    this.totalWidth = sizes.totalWidth;
+    this.totalHeight = sizes.totalHeight;
+    this.fontSize = sizes.fontSize;
+
   }
 
   inicializarScene() {
@@ -32,7 +31,10 @@ class cincoScene extends Phaser.Scene {
   }
 
   create() {
-    this.scale.on('orientationchange', function(orientation) {
+    this.getSizes();
+    this.inicializarScene();
+
+    this.scale.on('orientationchange', orientation => {
       if (orientation === Phaser.Scale.PORTRAIT) {
         console.log('PORTRAIT');
       } else if (orientation === Phaser.Scale.LANDSCAPE) {
@@ -41,7 +43,6 @@ class cincoScene extends Phaser.Scene {
     });
 
     this.cameras.main.setBackgroundColor(0xbababa);
-    this.fontSize = 18 * this.escala;
     // this.muestraPregunta();
     if (!this.preguntaText) {
       this.preguntaText = this.add.text(40, 20,
@@ -131,7 +132,8 @@ class cincoScene extends Phaser.Scene {
   }
 
   eliminarFajosMalColocados() {
-    for (let i = 0; i < 4; i++) {
+    let preguntasL = this.posicionesRespuestas.length();
+    for (let i = 0; i < preguntasL; i++) {
       if (this.posicionesRespuestas[i] != null) {
         if (i != this.pregunta.respuestaCorrecta) {
           this.eliminarFajos(this, this.posicionesRespuestas[i]);
@@ -147,7 +149,6 @@ class cincoScene extends Phaser.Scene {
     let width = window.innerWidth * window.devicePixelRatio;
     let height = window.innerHeight * window.devicePixelRatio;
     this.cameras.main.setBounds(0, 0, width, height);
-    console.log(width + ' ' + height);
   }
 
   contarFajos (scene, elemento) {
@@ -210,13 +211,13 @@ class cincoScene extends Phaser.Scene {
 
   update(){
     this.fajosEuros.children.iterate(fajo => {
-      fajo.clearTint(); // es lo mismo pintar de blanco (0xffffff);
+      fajo.clearTint();
     });
 
     this.posicionesRespuestas.forEach( elemento => {
-        if(elemento){
-          this.colorearFajos(this, elemento);
-        }
-      });
-    }
+      if(elemento){
+        this.colorearFajos(this, elemento);
+      }
+    });
+  }
 }

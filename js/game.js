@@ -1,6 +1,3 @@
-// import Phaser from 'phaser';
-// import InicioScene from './inicioScene.js';
-
 
 window.onload = function() {
   let config = {

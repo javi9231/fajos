@@ -5,19 +5,25 @@ class unoScene extends Phaser.Scene {
   constructor() {
     super('unoScene');
     this.score = 100;
-    this.escala = window.devicePixelRatio;
-    this.totalWidth = window.innerWidth * this.escala;
-    this.totalHeight = window.innerHeight * this.escala;
-    this.preguntas = cuestionario[Phaser.Math.Between(0,1)].preguntas.slice();
   }
 
   preload() {
-    this.inicializarScene();
     this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
+  getSizes(){
+    let sizes = new Sizes();
+    this.escala = sizes.escala;
+    this.totalWidth = sizes.totalWidth;
+    this.totalHeight = sizes.totalHeight;
+    this.preguntas = this.getCuestion();
+  }
+
+  getCuestion(){
+    return cuestionario[Phaser.Math.Between(0,1)].preguntas.slice();
+  }
+
   inicializarScene() {
-    // la clase se carga dos veces, así no perdemos una pregunta
     this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
 
     if (this.preguntaText) {
@@ -30,6 +36,8 @@ class unoScene extends Phaser.Scene {
   }
 
   create() {
+    this.getSizes();
+    this.inicializarScene();
 
     this.scale.on('orientationchange', function(orientation) {
       if (orientation === Phaser.Scale.PORTRAIT) {
@@ -93,26 +101,40 @@ class unoScene extends Phaser.Scene {
 
     this.graphics = this.add.graphics();
 
-    this.fajosEuros = this.physics.add.group({
-      key: 'fajoE',
-      repeat: (this.score / juegoConfig.valorFajo) - 1,
-      setXY: {
-        x: this.totalWidth - this.posicionRect.posXfajos,
-        y: this.posicionRect.posY - 100
-      }
-    });
-
+    let nFajos = (this.score / juegoConfig.valorFajo) - 1;
+    let fajos = new Fajos(this, nFajos);
+    this.fajosEuros = fajos.getFajos().slice();
     this.fajosEuros.children.iterate(fajo => {
       fajo.setInteractive({
         draggable: true
       });
       fajo.setCollideWorldBounds(true);
-      fajo.setScale(this.escala);
+      fajo.setScale(this.scene.escala / 2);
       fajo.on('drag', function(pointer, dragX, dragY) {
-        this.x = dragX;
-        this.y = dragY;
+        this.scene.x = dragX;
+        this.scene.y = dragY;
       });
     });
+    // this.physics.add.group({
+    //   key: 'fajoE',
+    //   repeat: (this.score / juegoConfig.valorFajo) - 1,
+    //   setXY: {
+    //     x: this.totalWidth - this.posicionRect.posXfajos,
+    //     y: this.posicionRect.posY - 100
+    //   }
+    // });
+    //
+    // this.fajosEuros.children.iterate(fajo => {
+    //   fajo.setInteractive({
+    //     draggable: true
+    //   });
+    //   fajo.setCollideWorldBounds(true);
+    //   fajo.setScale(this.escala);
+    //   fajo.on('drag', function(pointer, dragX, dragY) {
+    //     this.x = dragX;
+    //     this.y = dragY;
+    //   });
+    // });
     var canvas = this.sys.game.canvas;
   }
 
@@ -123,7 +145,7 @@ class unoScene extends Phaser.Scene {
       score: this.score,
       preguntas: this.preguntas,
       pregunta: this.pregunta,
-      nivelJuego: this.nivelJuego
+      nivelJuego: 1
     });
   }
 

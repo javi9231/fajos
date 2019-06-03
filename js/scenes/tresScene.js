@@ -9,10 +9,13 @@ class tresScene extends Phaser.Scene {
   init(datos) {
     this.score = datos.score;
     this.preguntas = datos.preguntas;
-    this.inicializarScene();
-    console.log('datos: ');
-    console.log(datos);
-    console.log('Score: ' + this.score);
+  }
+
+  getSizes(){
+    let sizes = new Sizes();
+    this.escala = sizes.escala;
+    this.totalWidth = sizes.totalWidth;
+    this.totalHeight = sizes.totalHeight;
   }
 
   preload() {
@@ -38,7 +41,8 @@ class tresScene extends Phaser.Scene {
   }
 
   create() {
-
+    this.getSizes();
+    this.inicializarScene();
     this.scale.on('orientationchange', function(orientation) {
       if (orientation === Phaser.Scale.PORTRAIT) {
         console.log('PORTRAIT');

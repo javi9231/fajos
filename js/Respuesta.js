@@ -16,14 +16,7 @@ class Respuesta extends Phaser.GameObjects.Container {
     this.name = name;
     this.create();
   }
-  //
-  // this.posicionRect = {
-  //   escala : this.escala,
-  //   fontSize: 18 * this.escala,
-  //   posX: 50 * this.escala,
-  //   posY: this.totalHeight / 4,
-  //   posXdesplazado: (100 + this.fontSize) * this.escala
-  // }
+
   create () {
     this.posRectX = this.rectW / 2;
     this.posRectY = this.rectH / 2;
