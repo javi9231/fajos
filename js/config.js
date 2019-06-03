@@ -9,9 +9,21 @@ const juegoConfig = {
     eliminar: 1
   }],
   colores: [
-    0xff0000,
-    0x00ff00,
-    0x0000ff,
-    0xff00ff
+    {
+      id: 0,
+      color: 0xff0000
+    },
+    {
+      id: 1,
+      color: 0x00ff00
+    },
+    {
+      id: 2,
+      color: 0x0000ff
+    },
+    {
+      id: 3,
+      color: 0xff00ff
+    }
   ]
 }

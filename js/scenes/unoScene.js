@@ -85,7 +85,7 @@ class unoScene extends Phaser.Scene {
         this.posicionRect.color = this.resultadoAleatorio(this.colores);
         this.posicionesRespuestas.push(Object.assign({}, this.posicionRect));
 
-        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
+        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color.color);
         this.posicionRect.posX += (this.tamanioRespuestaW);
         console.log(this.posicionesRespuestas);
       }
@@ -107,7 +107,7 @@ class unoScene extends Phaser.Scene {
         draggable: true
       });
       fajo.setCollideWorldBounds(true);
-      fajo.setScale(this.escala);
+      fajo.setScale(this.escala/(this.totalWidth/this.totalHeight));
       fajo.on('drag', function(pointer, dragX, dragY) {
         this.x = dragX;
         this.y = dragY;
@@ -173,7 +173,7 @@ class unoScene extends Phaser.Scene {
     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
       elemento.rectW, elemento.rectH, true, true);
     within.forEach(function(body) {
-      body.gameObject.setTint(elemento.color); //.destroy();
+      body.gameObject.setTint(elemento.color.color);
     });
   }
 

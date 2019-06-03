@@ -1,7 +1,6 @@
 class dosScene extends Phaser.Scene {
   constructor() {
     super('dosScene');
-    this.score = 200;
     this.escala = window.devicePixelRatio;
     this.totalWidth = window.innerWidth * this.escala;
     this.totalHeight = window.innerHeight * this.escala;
