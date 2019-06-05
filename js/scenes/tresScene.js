@@ -94,7 +94,8 @@ class tresScene extends Phaser.Scene {
         this.posicionRect.color = this.resultadoAleatorio(this.colores);
         this.posicionesRespuestas.push(Object.assign({}, this.posicionRect));
 
-        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
+        this.res1 = new Respuesta(this, this.gameView, this.posicionRect,
+          respuesta, this.posicionRect.color.color);
         this.posicionRect.posX += (this.tamanioRespuestaW);
         console.log(this.posicionesRespuestas);
       } else {
@@ -182,7 +183,7 @@ class tresScene extends Phaser.Scene {
     let within = scene.physics.overlapRect(elemento.posX, elemento.posY,
       elemento.rectW, elemento.rectH, true, true);
     within.forEach(function(body) {
-      body.gameObject.setTint(elemento.color); //.destroy();
+      body.gameObject.setTint(elemento.color.color); //.destroy();
     });
   }
 
