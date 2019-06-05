@@ -1,6 +1,5 @@
-class Fajos extends Phaser.GameObjects.Container{
+class Fajos {
   constructor(scene, nRepeat) {
-    super(scene);
     this.scene = scene;
     this.nRepeat = nRepeat;
   }
@@ -19,18 +18,20 @@ class Fajos extends Phaser.GameObjects.Container{
       }
     });
 
-    // fajos.children.iterate(fajo => {
-    //   fajo.setInteractive({
-    //     draggable: true
-    //   });
-    //   fajo.setCollideWorldBounds(true);
-    //   fajo.setScale(this.scene.escala / 2);
-    //   fajo.on('drag', function(pointer, dragX, dragY) {
-    //     this.scene.x = dragX;
-    //     this.scene.y = dragY;
-    //   });
-    // });
+    fajos.children.iterate(fajo => {
+      fajo.setInteractive({
+        draggable: true
+      });
+      fajo.setCollideWorldBounds(true);
+      fajo.setScale(this.scene.escala / 2);
+      fajo.on('drag', function(pointer, dragX, dragY) {
+        this.scene.x = dragX;
+        this.scene.y = dragY;
+      });
+    });
 
     return fajos;
   }
 }
+
+export default {Fajos};

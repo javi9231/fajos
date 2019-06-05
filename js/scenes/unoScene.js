@@ -1,14 +1,17 @@
 // import fajoBilletes from "../assets/fajoE.svg";
 // import MedidorTiempo from "../../js/object/MedidorTiempo.js";
+import Fajos from "../objects/Fajos.js";
 
 class unoScene extends Phaser.Scene {
   constructor() {
     super('unoScene');
     this.score = 100;
+    this.nivelJuego = 1;
+    this.numeroRespuestas = 4;
   }
 
   preload() {
-    this.load.image('fajoE', "./assets/fajoE.svg");
+    // this.load.image('fajoE', "./assets/fajoE.svg");
   }
 
   getSizes(){
@@ -16,7 +19,9 @@ class unoScene extends Phaser.Scene {
     this.escala = sizes.escala;
     this.totalWidth = sizes.totalWidth;
     this.totalHeight = sizes.totalHeight;
-    this.preguntas = this.getCuestion();
+    this.fontSize = sizes.fontSize;
+    this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas;
+    this.tamanioRespuestaH = this.totalHeight / 4;
   }
 
   getCuestion(){
@@ -24,15 +29,13 @@ class unoScene extends Phaser.Scene {
   }
 
   inicializarScene() {
+    this.preguntas = this.getCuestion();
     this.pregunta = this.pregunta || this.resultadoAleatorio(this.preguntas);
 
     if (this.preguntaText) {
       this.preguntaText.setText(this.pregunta.pregunta + ' score: ' + this.score);
     }
-
     this.colores = juegoConfig.colores.slice();
-    this.nivelJuego = 1;
-    this.numeroRespuestas = 4;
   }
 
   create() {
@@ -48,7 +51,7 @@ class unoScene extends Phaser.Scene {
     });
 
     this.cameras.main.setBackgroundColor(0xbababa);
-    this.fontSize = 18 * this.escala;
+
     // this.muestraPregunta();
     if (!this.preguntaText) {
       this.preguntaText = this.add.text(40, 20,
@@ -61,8 +64,6 @@ class unoScene extends Phaser.Scene {
           }
         });
     }
-    this.tamanioRespuestaW = this.totalWidth / this.numeroRespuestas;
-    this.tamanioRespuestaH = this.totalHeight / 4;
 
     this.posicionRect = {
       posX: 0,
@@ -93,7 +94,8 @@ class unoScene extends Phaser.Scene {
         this.posicionRect.color = this.resultadoAleatorio(this.colores);
         this.posicionesRespuestas.push(Object.assign({}, this.posicionRect));
 
-        this.res1 = new Respuesta(this, this.gameView, this.posicionRect, respuesta, this.posicionRect.color);
+        this.res1 = new Respuesta(this, this.gameView, this.posicionRect,
+          respuesta, this.posicionRect.color);
         this.posicionRect.posX += (this.tamanioRespuestaW);
         console.log(this.posicionesRespuestas);
       }
@@ -104,17 +106,7 @@ class unoScene extends Phaser.Scene {
     let nFajos = (this.score / juegoConfig.valorFajo) - 1;
     let fajos = new Fajos(this, nFajos);
     this.fajosEuros = fajos.getFajos().slice();
-    this.fajosEuros.children.iterate(fajo => {
-      fajo.setInteractive({
-        draggable: true
-      });
-      fajo.setCollideWorldBounds(true);
-      fajo.setScale(this.scene.escala / 2);
-      fajo.on('drag', function(pointer, dragX, dragY) {
-        this.scene.x = dragX;
-        this.scene.y = dragY;
-      });
-    });
+
     // this.physics.add.group({
     //   key: 'fajoE',
     //   repeat: (this.score / juegoConfig.valorFajo) - 1,
