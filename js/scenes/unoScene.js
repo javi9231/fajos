@@ -44,7 +44,7 @@ class unoScene extends Phaser.Scene {
     // this.muestraPregunta();
     if (!this.preguntaText) {
       this.preguntaText = this.add.text(40, 20,
-        this.pregunta.pregunta + ' score: ' + this.score, {
+        this.pregunta.pregunta + '\n score: ' + this.score, {
           fontSize: this.fontSize, //'40px',
           fill: '#000',
           align: 'center',
