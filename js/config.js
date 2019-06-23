@@ -1,6 +1,6 @@
 
 const juegoConfig = {
-  tiempoPregunta: 10,
+  tiempoPregunta: 60,
   tiempoMuestraResultado: 5,
   rondas: 5,
   valorFajo: 20,
